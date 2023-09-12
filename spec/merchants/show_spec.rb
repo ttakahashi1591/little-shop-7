@@ -18,14 +18,14 @@ RSpec.describe "Merchant Dashboard", type: :feature do
 
         visit "merchants/#{@merchant_1.id}/dashboard"
 
-        expect(page).to have_link("/merchants/#{@merchant_1.id}/items")
+        expect(page).to have_link "Your Items", href: "/merchants/#{@merchant_1.id}/items"
       end
 
       it "I also see a link to my invoices index /merchants/:id/invoices" do
 
         visit "merchants/#{@merchant_1.id}/dashboard"
 
-        expect(page).to have_link("/merchants/#{@merchant_1.id}/invoices")
+        expect(page).to have_link "Your Invoices", href: "/merchants/#{@merchant_1.id}/invoices"
       end
     end
   end
