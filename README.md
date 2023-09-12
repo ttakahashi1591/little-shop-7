@@ -39,3 +39,11 @@
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+## DTR
+- [Little Esty Shop DTR 9/11/23](https://docs.google.com/document/d/10_gmUGvAQ8LbZBYU3dRThc3mj7Sfw-Kmk0Xc-o0GC5c/edit)
+
+## Project Management Tools
+- [Daily Stand-Up miro Board](https://miro.com/app/board/uXjVMmNPycc=/?share_link_id=14014531443)
+- [GitHub Project Board](https://github.com/users/ttakahashi1591/projects/1/views/1)
+
