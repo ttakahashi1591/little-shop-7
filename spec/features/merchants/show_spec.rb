@@ -10,22 +10,27 @@ RSpec.describe "Merchant Dashboard", type: :feature do
 
         visit "/merchants/#{@merchant_1.id}/dashboard"
 
-        expect(page).to have_content(@merchant_1.name)
-
+        within(".merchant_header") do
+          expect(page).to have_content(@merchant_1.name)
+        end
       end
 
       it "I also see a link to my items index /merchants/:id/items" do
 
         visit "merchants/#{@merchant_1.id}/dashboard"
 
-        expect(page).to have_link "Your Items", href: "/merchants/#{@merchant_1.id}/items"
+        within('.merchant_links') do
+          expect(page).to have_link "Your Items", href: "/merchants/#{@merchant_1.id}/items"
+        end
       end
 
       it "I also see a link to my invoices index /merchants/:id/invoices" do
 
         visit "merchants/#{@merchant_1.id}/dashboard"
 
-        expect(page).to have_link "Your Invoices", href: "/merchants/#{@merchant_1.id}/invoices"
+        within('.merchant_links') do
+          expect(page).to have_link "Your Invoices", href: "/merchants/#{@merchant_1.id}/invoices"
+        end
       end
     end
   end
