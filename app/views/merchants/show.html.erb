@@ -1,0 +1,5 @@
+<h1 class='merchant_header'><%= @merchant.name %></h1>
+<section class="merchant_links">
+  <%= link_to "Your Items", "/merchants/#{@merchant.id}/items" %>
+  <%= link_to "Your Invoices", "/merchants/#{@merchant.id}/invoices" %>
+</section>
