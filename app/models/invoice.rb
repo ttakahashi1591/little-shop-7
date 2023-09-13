@@ -8,4 +8,8 @@ class Invoice < ApplicationRecord
     "completed" => 1,
     "in progress" => 2
   }
+
+  def self.not_shipped
+    select("invoices.id").joins(:invoice_items).where("invoice_items.status != ?", 2)
+  end
 end
