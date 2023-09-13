@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   get "/admin/invoices", to: "admin_invoices#index"
 
   get "/merchants/:id/items", to: "merchant_items#index"
+  get "/merchants/:id/items/:id", to: "merchant_item#show", as: :merchant_item
 end
