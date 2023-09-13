@@ -10,12 +10,13 @@ RSpec.describe "admin dashboard", type: :feature do
           expect(page).to have_content("Admin Dashboard")
         end
       end
-
+      
       it "Then I see links to '/admin/merchants' and '/admin/invoices'" do
         merchant = create(:merchant) 
         expect(merchant.valid?).to be true
         visit "/admin"
-
+        
+        save_and_open_page
         click_on "Admin Merchants Index"
 
         expect(current_path).to eq("/admin/merchants")
