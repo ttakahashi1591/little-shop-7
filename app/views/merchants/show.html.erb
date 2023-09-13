@@ -9,10 +9,4 @@
     <%= customer.name %>
   <% end %>
 </section>
-<section class="items_to_ship">
-  <% @merchant.invoices_in_progress.each do |invoice| %>
-    <% invoice.items.each do |item| %>
-      Item:<%= item.name %> Invoice #: <%= invoice.id %>
-    <%end %>
-  <% end %>
-</section>
+
