@@ -12,6 +12,10 @@ class Merchant < ApplicationRecord
       .order(count: :desc)
       .limit(5)
   end
+
+  def items_ready_to_ship
+    invoices.joins(:transactions).where('transactions.result = ?', 1).where('invoices.status = ?', 2)
+  end
 end
 
 

@@ -5,8 +5,10 @@
 </section>
 <h3>Favorite Customers:</h3>
 <section class="fav_customers">
+  <ul>
   <% @merchant.top_5_customers.each do |customer| %>
-    <%= customer.name %>
+    <li><%= customer.first_name %> <%= customer.last_name %></li>
   <% end %>
+  </ul>
 </section>
 
