@@ -14,7 +14,6 @@ RSpec.describe "admin dashboard", type: :feature do
       it "Then I see links to '/admin/merchants' and '/admin/invoices'" do
         merchant = create(:merchant) 
         expect(merchant.valid?).to be true
-        require 'pry';binding.pry
         visit "/admin"
 
         click_on "Admin Merchants Index"
