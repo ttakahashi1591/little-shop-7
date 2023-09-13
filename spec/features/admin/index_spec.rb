@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "admin dashboard", type: :feature do 
   describe "As an admin" do
     describe "When I visit /admin" do
-      xit "Then I see a header indicating that I am on the admin dashboard" do
+      it "Then I see a header indicating that I am on the admin dashboard" do
         visit "/admin"
 
         within("#header") do 
@@ -11,7 +11,7 @@ RSpec.describe "admin dashboard", type: :feature do
         end
       end
       
-      xit "Then I see links to '/admin/merchants' and '/admin/invoices'" do
+      it "Then I see links to '/admin/merchants' and '/admin/invoices'" do
         merchant = create(:merchant) 
         expect(merchant.valid?).to be true
         visit "/admin"
@@ -27,7 +27,7 @@ RSpec.describe "admin dashboard", type: :feature do
         expect(current_path).to eq("/admin/invoices")
       end
 
-      xit "Then I see the names of the top 5 customers who have conducted the largest number of successful transactions, next to each customer I see the number of successful transactions" do
+      it "Then I see the names of the top 5 customers who have conducted the largest number of successful transactions, next to each customer I see the number of successful transactions" do
         customer1 = Customer.create!(first_name: "Customer 1" , last_name: "Last")
         customer2 = Customer.create!(first_name: "Customer 2" , last_name: "Last")
         customer3 = Customer.create!(first_name: "Customer 3" , last_name: "Last")
