@@ -13,6 +13,6 @@ class Merchant < ApplicationRecord
   end
 
   def invoices_in_progress
-    invoices.where(status: 2).joins(:transactions).where(result: 1)
+    invoices.joins(:transactions).where('transactions.result = ?', 1).where('invoices.status = ?', 2)
   end
 end
