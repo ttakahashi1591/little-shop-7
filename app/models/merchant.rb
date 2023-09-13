@@ -11,4 +11,8 @@ class Merchant < ApplicationRecord
       .order(count: :desc)
       .limit(5)
   end
+
+  def invoices_in_progress
+    invoices.where(status: 2).joins(:transactions).where(result: 1)
+  end
 end

@@ -3,3 +3,16 @@
   <%= link_to "Your Items", "/merchants/#{@merchant.id}/items" %>
   <%= link_to "Your Invoices", "/merchants/#{@merchant.id}/invoices" %>
 </section>
+<h3>Favorite Customers:</h3>
+<section class="fav_customers">
+  <% @merchant.top_5_customers.each do |customer| %>
+    <%= customer.name %>
+  <% end %>
+</section>
+<section class="items_to_ship">
+  <% @merchant.invoices_in_progress.each do |invoice| %>
+    <% invoice.items.each do |item| %>
+      Item:<%= item.name %> Invoice #: <%= invoice.id %>
+    <%end %>
+  <% end %>
+</section>
