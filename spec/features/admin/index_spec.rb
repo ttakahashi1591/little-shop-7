@@ -141,6 +141,56 @@ RSpec.describe "admin dashboard", type: :feature do
           expect(current_path).to eq("/admin/invoices/#{invoice3.id}")
         end
       end
+
+      it "Next to each invoice is the date it was created formatted like 'Monday, July 18, 2019', ordered from oldest to newest" do
+        merchant1 = Merchant.create!(name: "Merchant")
+        item1 = merchant1.items.create!(name: "Item 1", description: "First Item", unit_price: 10)
+        item2 = merchant1.items.create!(name: "Item 1", description: "Second Item", unit_price: 20)
+        item3 = merchant1.items.create!(name: "Item 1", description: "Third Item", unit_price: 30)
+        customer1 = Customer.create!(first_name: "Customer 1" , last_name: "Last")
+        invoice1 = customer1.invoices.create!(status: 1, created_at: "2012-03-26 09:54:09 UTC", updated_at: "2012-03-26 09:54:09 UTC")
+        invoice2 = customer1.invoices.create!(status: 1, created_at: "2012-03-27 09:54:09 UTC", updated_at: "2012-03-27 09:54:09 UTC")
+        invoice3 = customer1.invoices.create!(status: 1, created_at: "2012-03-25 09:54:09 UTC", updated_at: "2012-03-25 09:54:09 UTC")
+        InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, status: 1)
+        InvoiceItem.create!(item_id: item2.id, invoice_id: invoice2.id, status: 1)
+        InvoiceItem.create!(item_id: item3.id, invoice_id: invoice3.id, status: 1)
+        
+        visit "/admin"
+
+        within("#Incomplete_Invoices") do
+
+          within("#invoice-#{invoice3.id}") do
+            expect(page).to have_content(invoice3.id)
+            expect(page).to have_content("Sunday, March 25, 2012")
+
+            click_on "#{invoice3.id}"
+
+            expect(current_path).to eq("/admin/invoices/#{invoice3.id}")
+          end
+
+          visit "/admin"
+
+          within("#invoice-#{invoice1.id}") do
+            expect(page).to have_content(invoice1.id)
+            expect(page).to have_content("Monday, March 26, 2012")
+
+            click_on "#{invoice1.id}"
+
+            expect(current_path).to eq("/admin/invoices/#{invoice1.id}")
+          end
+
+          visit "/admin"
+
+          within("#invoice-#{invoice2.id}") do
+            expect(page).to have_content(invoice2.id)
+            expect(page).to have_content("Tuesday, March 27, 2012")
+
+            click_on "#{invoice2.id}"
+
+            expect(current_path).to eq("/admin/invoices/#{invoice2.id}")
+          end
+        end
+      end
     end
   end
 end
