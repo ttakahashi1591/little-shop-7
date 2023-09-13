@@ -16,7 +16,6 @@ RSpec.describe "admin dashboard", type: :feature do
         expect(merchant.valid?).to be true
         visit "/admin"
         
-        save_and_open_page
         click_on "Admin Merchants Index"
 
         expect(current_path).to eq("/admin/merchants")
