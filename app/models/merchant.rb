@@ -5,19 +5,19 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :customers
 
   def top_5_customers
-    customers
-      .joins(invoices: :transactions)
-      .where('transactions.result = ?', 1)
-      .group('customers.id')
-      .order(count: :desc)
-      .limit(5)
     # customers
-    #   .select('customers.*, count(distinct invoices.id)')
-    #   .where("transactions.result = ?", 1)
     #   .joins(invoices: :transactions)
+    #   .where('transactions.result = ?', 1)
     #   .group('customers.id')
-    #   .order('count desc')
+    #   .order(count: :desc)
     #   .limit(5)
+    customers
+      .select('distinct customers.*, count(distinct transactions.id)')
+      .joins(invoices: :transactions)
+      .where("transactions.result = ?", 1)
+      .group('customers.id')
+      .order('count desc')
+      .limit(5)
   end
 
   def top_5_customers_sql

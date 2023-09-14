@@ -40,19 +40,19 @@ RSpec.describe "Merchant Dashboard", type: :feature do
     1.times { @cust_4
               .invoices.create!(status: 1)
               .invoice_items.create!(status: 2, quantity: 1, unit_price: 1, item_id: chochky.id)
-              .invoice.transactions.create!(result: 1)
+              .invoice.transactions.create!(result: 0)
             } 
 
     1.times { @cust_4
               .invoices.create!(status: 1)
               .invoice_items.create!(status: 2, quantity: 1, unit_price: 1, item_id: chochky.id)
-              .invoice.transactions.create!(result: 0)
+              .invoice.transactions.create!(result: 1)
             } 
 
     1.times { @cust_4
               .invoices.create!(status: 1)
               .invoice_items.create!(status: 2, quantity: 1, unit_price: 1, item_id: spinner.id)
-              .invoice.transactions.create!(result: 0)
+              .invoice.transactions.create!(result: 1)
             }
 
     1.times { @cust_6
