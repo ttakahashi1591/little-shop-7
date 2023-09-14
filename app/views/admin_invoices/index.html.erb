@@ -1,0 +1,7 @@
+<h1>Invoices Admin Page</h1>
+<br>
+<% @invoices.each do |invoice| %>
+  <section id="invoice-<%= invoice.id %>">
+    <p><%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %>&ensp;<small style="font-size:70%">Created_on: <%= invoice.date_conversion %></small></p><br>
+  </section>
+<% end %><br>

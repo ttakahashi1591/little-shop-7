@@ -8,4 +8,16 @@ class Invoice < ApplicationRecord
     "completed" => 1,
     "in progress" => 2
   }
+
+  def self.not_shipped
+    select("invoices.id, invoices.created_at").joins(:invoice_items).where("invoice_items.status != ?", 2).order("created_at asc")
+  end
+
+  def date_conversion
+    created_at.strftime("%A, %B %d, %Y")
+  end
+
+  def customer_name
+    "#{customer.first_name} #{customer.last_name}"
+  end
 end
