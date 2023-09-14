@@ -1,7 +1,20 @@
 <h1 id="header">Admin Dashboard</h1>
 
-<%= link_to "Admin Merchants Index", "/admin/merchants" %>
-
-<%= link_to "Admin Invoices Index", "/admin/invoices" %>
-
-
+<%= link_to "Admin Merchants Index", "/admin/merchants" %><br>
+<%= link_to "Admin Invoices Index", "/admin/invoices" %><br>
+<br>
+<h3>Top Customers</h3><br>
+<% @top_customers.each do |customer| %>
+  <section id="customer-<%= customer.id %>">
+    <p>Customer: <%= customer.first_name %> <%= customer.last_name %>, Successful transactions: <%= customer.transactions_count %></p><br>
+  </section>
+<% end %><br>
+<br>
+<div id="Incomplete_Invoices">
+  <h3>Incomplete Invoices</h3><br>
+  <% @invoices.not_shipped.each do |invoice| %>
+    <section id="invoice-<%= invoice.id %>">
+      <p><%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %>&ensp;<small style="font-size:70%">Created at: <%= invoice.date_conversion %></small></p><br>
+    </section>
+  <% end %><br>
+</div>
