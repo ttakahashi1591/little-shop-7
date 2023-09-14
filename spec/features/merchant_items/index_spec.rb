@@ -13,12 +13,10 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
 
     expect(page).to have_content("Items for #{@merchant.name}")
     expect(page).to_not have_content("Items for #{@merchant_2.name}")
-    
+
     @items.each do |item|
       expect(page).to have_link(item.name)
       expect(page).to have_content(item.name)
-      expect(page).to have_content(item.description)
-      expect(page).to have_content(item.unit_price)
     end
 
     @items_2.each do |item|

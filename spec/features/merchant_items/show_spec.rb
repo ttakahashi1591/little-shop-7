@@ -1,10 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe "Merchant Items Show Page", type: :feature do
-  before(:each) do
+  before(:each) do 
     @merchant = create(:merchant)
-    @items = create_list(:item, 5, merchant: @merchant)
-    @merchant_2 = create(:merchant)
-    @items_2 = create_list(:item, 3, merchant: @merchant_2)
+    @item = create(:item, merchant: @merchant)
+    @item2 = create(:item, merchant: @merchant)
+  end
+
+  it "shows all of the item's attributes" do 
+    visit merchant_item_path(@merchant, @item)
+
+    expect(page).to have_current_path(merchant_item_path(@merchant, @item))
+
+    expect(page).to have_content(@item.name)
+    expect(page).to have_content(@item.description)
+    expect(page).to have_content(@item.unit_price)
   end
 end
