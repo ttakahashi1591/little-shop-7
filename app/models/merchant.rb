@@ -2,24 +2,16 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices, through: :items
   has_many :customers, through: :invoices
-  has_many :transactions, through: :customers
+  has_many :transactions, through: :invoices
 
   def top_5_customers
-    # customers
-    #   .joins(invoices: :transactions)
-    #   .where('transactions.result = ?', 1)
-    #   .group('customers.id')
-    #   .order(count: :desc)
-    #   .limit(5)
-    customers
-      .select('distinct customers.*, count(distinct transactions.id)')
-      .joins(invoices: :transactions)
-      .where("transactions.result = 1")
-      .joins(:items)
-      .where('items.merchant_id = ?', self.id)
+    invoices
+      .joins(:transactions)
+      .where('transactions.result = ?', 1)
+      .select('customers.*, count(transactions.id) as success_count')
+      .joins(:customer)
       .group('customers.id')
-      .order('count desc')
-      .limit(5)
+      .order('success_count desc')
   end
 
   def top_5_customers_sql
@@ -41,7 +33,3 @@ class Merchant < ApplicationRecord
     invoices.joins(:transactions).where('transactions.result = ?', 1).where('invoices.status = ?', 2)
   end
 end
-
-
-# merchant1.customers.select('customers.*, count(transactions.id) as transactions').joins(:transactions).where(transactions: { result: "success" }).group(:
-  # id).order('transactions desc')

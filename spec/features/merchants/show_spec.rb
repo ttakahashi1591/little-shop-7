@@ -45,12 +45,6 @@ RSpec.describe "Merchant Dashboard", type: :feature do
 
     1.times { @cust_4
               .invoices.create!(status: 1)
-              .invoice_items.create!(status: 2, quantity: 1, unit_price: 1, item_id: chochky.id)
-              .invoice.transactions.create!(result: 1)
-            } 
-
-    1.times { @cust_4
-              .invoices.create!(status: 1)
               .invoice_items.create!(status: 2, quantity: 1, unit_price: 1, item_id: spinner.id)
               .invoice.transactions.create!(result: 1)
             }
@@ -94,14 +88,12 @@ RSpec.describe "Merchant Dashboard", type: :feature do
          
         visit "/merchants/#{@merchant_1.id}/dashboard"
 
-        # within(".fav_customers") do
-        #   expect(@cust_1.first_name).to appear_before(@cust_3.first_name)
-        #   expect(@cust_3.first_name).to appear_before(@cust_2.first_name)
-        #   expect(@cust_2.first_name).to appear_before(@cust_5.first_name)
-        #   expect(@cust_5.first_name).to appear_before(@cust_4.first_name)
-        # end
-
-        save_and_open_page
+        within(".fav_customers") do
+          expect(@cust_1.first_name).to appear_before(@cust_3.first_name)
+          expect(@cust_3.first_name).to appear_before(@cust_2.first_name)
+          expect(@cust_2.first_name).to appear_before(@cust_5.first_name)
+          expect(@cust_5.first_name).to appear_before(@cust_4.first_name)
+        end
 
         within(".#{@cust_1.first_name}") do
           expect(page).to have_content("Successful Transactions: 5")
