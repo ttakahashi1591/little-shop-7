@@ -25,4 +25,15 @@ RSpec.describe Invoice, type: :model do
       end
     end
   end
+
+  describe "instance methods" do
+    describe "#date_convertion" do
+      it "converts the created_at date format to something like 'Wednesday, September 13, 2023'" do
+        customer1 = Customer.create!(first_name: "Customer 1" , last_name: "Last")
+        invoice1 = customer1.invoices.create!(status: 1, created_at: "Wed, 13 Sep 2023 23:53:41.782461000 UTC +00:00")
+
+        expect(invoice1.date_conversion).to eq("Wednesday, September 13, 2023")
+      end
+    end
+  end
 end

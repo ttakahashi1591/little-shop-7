@@ -10,6 +10,10 @@ class Invoice < ApplicationRecord
   }
 
   def self.not_shipped
-    select("invoices.id").joins(:invoice_items).where("invoice_items.status != ?", 2)
+    select("invoices.id, invoices.created_at").joins(:invoice_items).where("invoice_items.status != ?", 2).order("created_at asc")
+  end
+
+  def date_conversion
+    created_at.strftime("%A, %B %d, %Y")
   end
 end
