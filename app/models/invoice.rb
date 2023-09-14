@@ -16,4 +16,8 @@ class Invoice < ApplicationRecord
   def date_conversion
     created_at.strftime("%A, %B %d, %Y")
   end
+
+  def customer_name
+    "#{customer.first_name} #{customer.last_name}"
+  end
 end
