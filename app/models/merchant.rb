@@ -31,7 +31,7 @@ class Merchant < ApplicationRecord
 
   def items_ready_to_ship
     items
-    .select('items.name, invoices.id as invoice_id')
+    .select('items.*, invoices.id as invoice_id')
     .joins(invoices: :transactions)
     .where('transactions.result = 1 and invoices.status in (1,2) and invoice_items.status = 1')
   end
