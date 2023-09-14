@@ -1,0 +1,16 @@
+<h1>Items for <%= @merchant.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
