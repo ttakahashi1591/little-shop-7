@@ -74,6 +74,14 @@ RSpec.describe "Merchant Dashboard", type: :feature do
          
         visit "/merchants/#{@merchant_1.id}/dashboard"
 
+        save_and_open_page
+
+        within(".fav_customers") do
+          expect(@cust_1.first_name).to appear_before(@cust_3.first_name)
+          expect(@cust_3.first_name).to appear_before(@cust_2.first_name)
+          expect(@cust_2.first_name).to appear_before(@cust_5.first_name)
+          expect(@cust_5.first_name).to appear_before(@cust_4.first_name)
+        end
       end
     end
   end
