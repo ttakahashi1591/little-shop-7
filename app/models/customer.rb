@@ -7,11 +7,4 @@ class Customer < ApplicationRecord
   def self.top
     select("customers.*, count(transactions.result) as transactions_count").joins(:transactions).where("transactions.result = ?", 1).group(:id).order("transactions_count desc").limit(5)
   end
-
-  def successfull_transactions
-    invoices
-    .joins(:transactions)
-    .where('transactions.result = ?', 1)
-    .count
-  end
 end
