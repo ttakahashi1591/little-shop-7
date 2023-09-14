@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get '/merchants/:id/dashboard', to: 'merchants#show'
-  get "/merchants/:id/items", to: "/merchant_items#index"
-  get "/merchants/:merchant_id/items/:id", to: "/merchant_items#show", as: :merchant_item
+  get "/merchants/:id/items", to: "merchant_items#index"
+  get "/merchants/:merchant_id/items/:id", to: "merchant_items#show", as: :merchant_item
 
   get "/admin", to: "admin#index"
   get "/admin/merchants", to: "admin_merchants#index"
