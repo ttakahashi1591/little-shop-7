@@ -35,5 +35,14 @@ RSpec.describe Invoice, type: :model do
         expect(invoice1.date_conversion).to eq("Wednesday, September 13, 2023")
       end
     end
+    
+    describe "#customer_name" do
+      it "converts the frist and last names of the customer into one string" do
+        customer1 = Customer.create!(first_name: "John" , last_name: "Smith")
+        invoice1 = customer1.invoices.create!(status: 1)
+
+        expect(invoice1.customer_name).to eq("John Smith")
+      end
+    end
   end
 end
