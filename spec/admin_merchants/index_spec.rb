@@ -12,23 +12,23 @@ RSpec.describe "admin dashboard", type: :feature do
 
         visit "/admin/merchants"
 
-        within("#merchant-#{@merchant1.id}") do 
+        within("#merchant-index-#{@merchant1.id}") do 
           expect(page).to have_content(@merchant1.name)
         end
 
-        within("#merchant-#{@merchant2.id}") do 
+        within("#merchant-index-#{@merchant2.id}") do 
           expect(page).to have_content(@merchant2.name)
         end
 
-        within("#merchant-#{@merchant3.id}") do 
+        within("#merchant-index-#{@merchant3.id}") do 
           expect(page).to have_content(@merchant3.name)
         end
           
-        within("#merchant-#{@merchant4.id}") do 
+        within("#merchant-index-#{@merchant4.id}") do 
           expect(page).to have_content(@merchant4.name)
         end
 
-        within("#merchant-#{@merchant5.id}") do
+        within("#merchant-index-#{@merchant5.id}") do
           expect(page).to have_content(@merchant5.name)
         end
       end
