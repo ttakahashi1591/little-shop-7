@@ -14,7 +14,9 @@ class Merchant < ApplicationRecord
     customers
       .select('distinct customers.*, count(distinct transactions.id)')
       .joins(invoices: :transactions)
-      .where("transactions.result = ?", 1)
+      .where("transactions.result = 1")
+      .joins(:items)
+      .where('items.merchant_id = ?', self.id)
       .group('customers.id')
       .order('count desc')
       .limit(5)
