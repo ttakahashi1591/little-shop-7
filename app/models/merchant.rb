@@ -11,15 +11,16 @@ class Merchant < ApplicationRecord
     #   .group('customers.id')
     #   .order(count: :desc)
     #   .limit(5)
-    customers
-      .select('distinct customers.*, count(distinct transactions.id)')
-      .joins(invoices: :transactions)
-      .where("transactions.result = 1")
-      .joins(:items)
-      .where('items.merchant_id = ?', self.id)
-      .group('customers.id')
-      .order('count desc')
-      .limit(5)
+
+    # customers
+    #   .select('distinct customers.*, count(distinct transactions.id)')
+    #   .joins(invoices: :transactions)
+    #   .where("transactions.result = 1")
+    #   .joins(:items)
+    #   .where('items.merchant_id = ?', self.id)
+    #   .group('customers.id')
+    #   .order('count desc')
+    #   .limit(5)
   end
 
   def top_5_customers_sql
@@ -38,7 +39,9 @@ class Merchant < ApplicationRecord
   end
 
   def items_ready_to_ship
-    invoices.joins(:transactions).where('transactions.result = ?', 1).where('invoices.status = ?', 2)
+    items
+    .joins(invoices: :transactions)
+    .where('transactions.result = 1 and invoices.status in (1,2) and invoice_items.status = 1')
   end
 end
 
