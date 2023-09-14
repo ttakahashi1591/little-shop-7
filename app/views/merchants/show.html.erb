@@ -7,7 +7,9 @@
 <section class="fav_customers">
   <ul>
   <% @merchant.top_5_customers.each do |customer| %>
+  <section class=<%= customer.first_name %>>
     <li>Customer:<%= customer.first_name %> <%= customer.last_name %> : Successful Transactions: <%= customer.successfull_transactions %></li>
+  </section>
   <% end %>
   </ul>
 </section>
