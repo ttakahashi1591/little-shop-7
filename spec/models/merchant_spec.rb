@@ -49,7 +49,7 @@ RSpec.describe Merchant, type: :model do
 
   describe "#top_5_customers" do
     it "returns the top 5 customers with most successful transactions for a merchant" do
-      expect(@merchant_1.top_5_customers).to eq([@cust_1, @cust_3, @cust_2, @cust_5, @cust_4])
+      expect(@merchant_1.top_5_customers_sql).to eq([@cust_1, @cust_3, @cust_2, @cust_5, @cust_4])
     end
   end
 end

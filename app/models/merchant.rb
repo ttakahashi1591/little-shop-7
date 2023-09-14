@@ -11,6 +11,28 @@ class Merchant < ApplicationRecord
       .group('customers.id')
       .order(count: :desc)
       .limit(5)
+    # customers
+    #   .select('customers.*, count(distinct invoices.id)')
+    #   .where("transactions.result = ?", 1)
+    #   .joins(invoices: :transactions)
+    #   .group('customers.id')
+    #   .order('count desc')
+    #   .limit(5)
+  end
+
+  def top_5_customers_sql
+    Customer.find_by_sql(
+      "select count(transactions.id), customers.* from transactions
+      join invoices on invoices.id = transactions.invoice_id
+      join customers on customers.id = invoices.customer_id
+      join invoice_items on invoice_items.invoice_id = invoices.id
+      join items on invoice_items.item_id = items.id
+      where items.merchant_id = #{self.id}
+      and transactions.result = 1
+      group by customers.id
+      order by count desc
+      limit 5;"
+    )
   end
 
   def items_ready_to_ship
