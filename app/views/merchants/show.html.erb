@@ -14,3 +14,9 @@
   </ul>
 </section>
 
+<section class="items_ready_to_ship">
+  <% @merchant.items_ready_to_ship.each do |item| %>
+    <li>Item: <%= item.name %> Invoice: <%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %></li>
+  <% end %>
+</section>
+
