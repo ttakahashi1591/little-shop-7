@@ -14,9 +14,9 @@ RSpec.describe "the admin_invoices id show page", type: :feature do
        
         @invoice1 = @customer1.invoices.create!(status: 1)
         
-        @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, status: 2)
-        @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 2, status: 2)
-        @invoice_item3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 3, status: 2)
+        @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 10, status: 2)
+        @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 2, unit_price: 20, status: 2)
+        @invoice_item3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 3, unit_price: 30, status: 2)
         
         visit "/admin/invoices/#{@invoice1.id}"
       end
@@ -31,7 +31,6 @@ RSpec.describe "the admin_invoices id show page", type: :feature do
       end
 
       it "Then I see all of the items on the invoice, including: name, quantity, price, status" do
-        save_and_open_page
         within("#item-#{@item1.id}") do
           expect(page).to have_content(@item1.name)
           expect(page).to have_content(@invoice_item1.quantity)
@@ -52,6 +51,10 @@ RSpec.describe "the admin_invoices id show page", type: :feature do
           expect(page).to have_content(@item3.unit_price)
           expect(page).to have_content(@invoice_item3.status)
         end
+      end
+
+      it "Then I see the total revenue that will be generated from this invoice" do
+        expect(page).to have_content(@invoice1.total_revenue)
       end
     end
   end
