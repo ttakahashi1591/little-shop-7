@@ -1,10 +1,15 @@
 <br>
 <br>
 <h3>Invoice id: <%= @invoice.id %></h3>
-<h3>Invoice Status: <%= @invoice.status %></h3>
 <h3>Invoice Created Date: <%= @invoice.date_conversion %></h3>
 <h3>Customer: <%= @invoice.customer_name %></h3>
 <h3>Total Revenue Possible: <%= @invoice.total_revenue %></h3>
+<%= form_with url:"/admin/invoices/#{@invoice.id}", method: :patch, data: {turbo: false} do |form| %>
+  <h3><%= form.label :status, "Invoice Status:" %>
+  <%= form.select :status, options_for_select(Invoice.statuses.keys, @invoice.status) %>
+  <%= form.submit "Update Invoice Status" %>
+  </h3>
+<% end %>
 <br>
 <h3>Items:</h3>
 <dl>
