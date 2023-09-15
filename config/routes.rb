@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get '/merchants/:id/invoices/:id', to: 'merchants_invoices#show'
+  get '/merchants/:id/invoices', to: 'merchant_invoices#index'
+  get '/merchants/:id/invoices/:id', to: 'merchant_invoices#show'
   get '/merchants/:id/dashboard', to: 'merchants#show'
   get "/merchants/:id/items", to: "merchant_items#index"
   get "/merchants/:merchant_id/items/:id", to: "merchant_items#show", as: :merchant_item

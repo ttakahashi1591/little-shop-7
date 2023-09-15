@@ -12,9 +12,9 @@ RSpec.describe "Merchant Invoices index", type: :feature do
     @cust_2 = Customer.create!(first_name: "Becky", last_name: "Beckam")
 
     @invoice_1 = @cust_1.invoices.create!(status: 1)
-                       .invoice_items.create!(item_id: @spinner.id)
+    InvoiceItem.create!(item_id: @spinner.id, invoice_id: @invoice_1.id)
     @invoice_2 = @cust_2.invoices.create!(status: 1)
-                       .invoice_items.create!(item_id: @bouncer.id)
+    InvoiceItem.create!(item_id: @bouncer.id, invoice_id: @invoice_2.id)
   end
   describe "As a visitor" do
     describe "When I visit /merchants/:merchant_id/invoices" do
@@ -22,12 +22,13 @@ RSpec.describe "Merchant Invoices index", type: :feature do
       for each invoice I also see it's ID, and each ID links to the invoice show page" do
 
         visit "/merchants/#{@merchant_2.id}/invoices"
+        save_and_open_page
 
         within(".invoice_list") do
-          expect(page).to have_content(@spinner.name)
           expect(page).to have_content(@invoice_1.id)
           expect(page).to have_content(@invoice_1.status)
-          expect(page).to have_content(@cust_1.first_name + cust_1.last_name)
+          expect(page).to have_content(@invoice_1.date_conversion)
+          expect(page).to have_content("#{@cust_1.first_name} #{@cust_1.last_name}")
         end
       end
     end
