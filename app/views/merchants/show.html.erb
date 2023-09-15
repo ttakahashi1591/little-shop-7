@@ -5,8 +5,20 @@
 </section>
 <h3>Favorite Customers:</h3>
 <section class="fav_customers">
+  <ul>
   <% @merchant.top_5_customers.each do |customer| %>
-    <%= customer.name %>
+  <section class=<%= customer.first_name %>>
+    <li>Customer:<%= customer.first_name %> <%= customer.last_name %> : Successful Transactions: <%= customer.success_count%></li>
+  </section>
+  <% end %>
+  </ul>
+</section>
+<h3>Items Ready to ship</h3>
+<section class="items_ready_to_ship">
+  <% @merchant.items_ready_to_ship.each do |item| %>
+    <strong>Item:</strong> <%= item.name %> 
+    <strong>Date Created:</strong> <%= item.ordered_on_date %> 
+    <strong>Invoice:</strong> <%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %><br>
   <% end %>
 </section>
 
