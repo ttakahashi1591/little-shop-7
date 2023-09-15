@@ -22,7 +22,6 @@ RSpec.describe "Merchant Invoices index", type: :feature do
       for each invoice I also see it's ID, and each ID links to the invoice show page" do
 
         visit "/merchants/#{@merchant_2.id}/invoices"
-        save_and_open_page
 
         within(".invoice_list") do
           expect(page).to have_content(@invoice_1.id)
