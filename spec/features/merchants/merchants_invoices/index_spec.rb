@@ -26,6 +26,7 @@ RSpec.describe "Merchant Invoices index", type: :feature do
 
         within(".invoice_list") do
           expect(page).to have_content(@invoice_1.id)
+          expect(page).to have_link "#{@invoice_1.id}", href: "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
           expect(page).to have_content(@invoice_1.status)
           expect(page).to have_content(@invoice_1.date_conversion)
           expect(page).to have_content("#{@cust_1.first_name} #{@cust_1.last_name}")
