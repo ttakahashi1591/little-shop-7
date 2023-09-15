@@ -1,0 +1,12 @@
+<h1><%= @merchant.name %></h1>
+<h3>Invoices:</h3>
+<section class="invoice_list">
+  <% @merchant.invoices.each do |invoice| %>
+    <ul>
+      <li>Invoice Id: <%= link_to invoice.id, "/merchants/#{@merchant.id}/invoices/#{invoice.id}" %></li>
+      <li>Invoice Status: <%= invoice.status %></li>
+      <li>Date Created: <%= invoice.date_conversion %></li>
+      <li>Customer: <%= invoice.customer_name %></li>
+    </ul>
+  <% end %>
+</section>
