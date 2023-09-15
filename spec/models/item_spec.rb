@@ -32,9 +32,9 @@ RSpec.describe Item, type: :model do
 
     describe "#status(invoice.id)" do
       it "returns the invoice_items status for the item with the passed in invoice.id" do
-        expect(@item1.status(@invoice1.id)).to eq(@invoice_item1.status)
-        expect(@item2.status(@invoice1.id)).to eq(@invoice_item2.status)
-        expect(@item3.status(@invoice1.id)).to eq(@invoice_item3.status)
+        expect(@item1.invoice_status(@invoice1.id)).to eq(@invoice_item1.status)
+        expect(@item2.invoice_status(@invoice1.id)).to eq(@invoice_item2.status)
+        expect(@item3.invoice_status(@invoice1.id)).to eq(@invoice_item3.status)
       end
     end
   end
