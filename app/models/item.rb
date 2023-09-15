@@ -11,4 +11,8 @@ class Item < ApplicationRecord
   def status(invoice)
     InvoiceItem.where(item_id: id, invoice_id: invoice).first.status
   end
+
+  def ordered_on_date
+    Invoice.find(self.invoice_id).date_conversion
+  end
 end

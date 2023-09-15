@@ -125,9 +125,24 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         visit "/merchants/#{@merchant_2.id}/dashboard"
 
         within(".items_ready_to_ship") do
-          expect(page).to have_content("Item: #{@bouncer.name} Invoice:")
+          expect(page).to have_content("#{@bouncer.name}")
           expect(page).to have_link href: "/merchants/#{@merchant_2.id}/invoices/#{@bouncer.invoices.first.id}"
         end
+      end
+
+      it "In the section for items ready to ship, 
+      I see them ordered by oldest created to most recent formated (Day_name, Month day_number, year)" do
+
+        ordered_invoices = @merchant_2.invoices.order('created_at')
+
+        visit "merchants/#{@merchant_2.id}/dashboard"
+
+        invoice_1_index = page.body.index(ordered_invoices[0].id.to_s)
+        invoice_2_index = page.body.index(ordered_invoices[1].id.to_s)
+        invoice_3_index = page.body.index(ordered_invoices[2].id.to_s)
+
+        expect(invoice_1_index.to_i < invoice_2_index.to_i).to be_truthy
+        expect(invoice_2_index.to_i < invoice_3_index.to_i).to be_truthy
       end
     end
   end

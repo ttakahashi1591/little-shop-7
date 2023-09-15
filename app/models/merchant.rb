@@ -34,5 +34,6 @@ class Merchant < ApplicationRecord
     .select('items.*, invoices.id as invoice_id')
     .joins(invoices: :transactions)
     .where('transactions.result = 1 and invoices.status in (1,2) and invoice_items.status = 1')
+    .order('created_at')
   end
 end
