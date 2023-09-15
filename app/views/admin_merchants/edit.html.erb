@@ -1,0 +1,9 @@
+<h1>Edit Merchant</h1>
+
+<section id="edit-form">
+  <%= form_with url: "/admin/merchants/#{@merchant.id}", method: :patch, data: { turbo: false } do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name, value: @merchant.name %>
+    <%= form.submit "Submit" %>
+  <% end %>
+</section>
