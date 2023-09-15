@@ -136,7 +136,6 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         ordered_invoices = @merchant_2.invoices.order('created_at')
 
         visit "merchants/#{@merchant_2.id}/dashboard"
-        save_and_open_page
 
         invoice_1_index = page.body.index(ordered_invoices[0].id.to_s)
         invoice_2_index = page.body.index(ordered_invoices[1].id.to_s)
