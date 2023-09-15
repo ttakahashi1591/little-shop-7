@@ -2,8 +2,8 @@
 
 <ul>
   <% @merchants.each do |merchant| %>
-    <section id="merchant-<%=merchant.id%>">
-      <li><%= merchant.name %></li>
+    <section id="merchant-index-<%=merchant.id%>">
+      <li><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></li>
     </section>
   <% end %>
 </ul>
