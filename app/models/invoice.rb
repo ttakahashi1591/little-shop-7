@@ -24,9 +24,4 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum('quantity * unit_price')
   end
-
-  def customer_name
-    cust = Customer.find(self.customer_id)
-    "#{cust.first_name} #{cust.last_name}"
-  end
 end
