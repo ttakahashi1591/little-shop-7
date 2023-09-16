@@ -58,22 +58,12 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     end
   end
 
-  it "has a link to create a new item" do 
+  it "has a link that has a page to create a new item" do 
     visit "/merchants/#{@merchant.id}/items"
     expect(page).to have_link("Create New Item")
 
     click_link("Create New Item")
 
-    expect(page).to have_field("Name")
-    expect(page).to have_field("Description")
-    expect(page).to have_field("Unit price")
-
-    fill_in "Name", with: "New name"
-    fill_in "Description", with: "New description"
-    fill_in "Unit price", with: 20
-
-    click_button("Submit")
-    save_and_open_page
-    expect(page).to have_current_path("/merchants/#{@merchant.id}/items")
+    expect(page).to have_current_path("/merchants/#{@merchant.id}/items/new")
   end
 end

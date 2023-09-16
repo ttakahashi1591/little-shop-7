@@ -1,7 +1,7 @@
 <h1>Items for <%= @merchant.name %></h1>
 
 <section id="new-form">
-  <%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :post, data: {turbo: false} %>
+  <%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new" %>
 </section>
 
 <h1> Enabled Items </h1>
