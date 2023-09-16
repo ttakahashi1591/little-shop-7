@@ -28,8 +28,6 @@ RSpec.describe "Merchant Invoices show", type: :feature do
 
         visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
 
-        save_and_open_page
-
         within(".invoice_info") do
           expect(page).to have_content("Item name: #{@spinner.name}")
           expect(page).to have_content("Quantity ordered: 20")
