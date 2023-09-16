@@ -3,7 +3,14 @@
 <ul>
   <% @merchants.each do |merchant| %>
     <section id="merchant-index-<%=merchant.id%>">
-      <li><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></li>
+      <li>
+        <%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></li>
+        <% if merchant.status.present? %>
+          <%= button_to "Disable", "/admin/merchants", method: :patch %>
+        <% else %>
+          <= button_to "Enable", "/admin/merchants", method: :patch %>
+        <% end %>
+      </li>
     </section>
   <% end %>
 </ul>
