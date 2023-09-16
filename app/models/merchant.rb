@@ -12,6 +12,7 @@ class Merchant < ApplicationRecord
       .joins(:customer)
       .group('customers.id')
       .order('success_count desc')
+      .limit(5)
   end
 
   def top_5_customers_sql
