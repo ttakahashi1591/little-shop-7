@@ -17,6 +17,21 @@ class ItemsController < ApplicationController
       render 'edit'
     end
   end
+
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def create
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.new(item_params)
+
+    if @item.save
+      redirect_to "/merchants/#{@merchant.id}/items"
+    else
+      render :new
+    end
+  end
   
   private
   

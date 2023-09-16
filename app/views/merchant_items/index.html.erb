@@ -1,12 +1,11 @@
 <h1>Items for <%= @merchant.name %></h1>
 
+<section id="new-form">
+  <%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new", method: :post, data: {turbo: false} %>
+</section>
+
 <h1> Enabled Items </h1>
 <table id="enabled-items">
-  <thead>
-    <tr>
-      <th>Enabled Items</th>
-    </tr>
-  </thead>
   <tbody>
     <% @enabled_items.each do |item| %>
     <section id="item-<%= item.id %>">
@@ -26,11 +25,6 @@
 <h1> Disabled Items </h1>
 
 <table id="disabled-items">
-  <thead>
-    <tr>
-      <th>Disabled Items</th>
-    </tr>
-  </thead>
   <tbody>
     <% @disabled_items.each do |item| %>
     <section id="item-<%= item.id %>">
