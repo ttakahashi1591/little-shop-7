@@ -38,7 +38,7 @@ RSpec.describe "admin dashboard", type: :feature do
 
         click_on "Create New Merchant"
 
-        expect(current_path).to eq("admin/merchants/new")
+        expect(current_path).to eq("/admin/merchants/new")
       end
     end
     
