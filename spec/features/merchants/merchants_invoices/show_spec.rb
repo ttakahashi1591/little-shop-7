@@ -36,6 +36,15 @@ RSpec.describe "Merchant Invoices show", type: :feature do
           expect(page).to have_content('Price: 30')
         end
       end
+      
+      it "I see the total revenue that the invoice will generate" do
+
+        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+
+        within(".revenue") do
+          expect(page).to have_content("Total revenue: 600")
+        end
+      end
     end
   end
 end

@@ -140,7 +140,7 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         invoice_1_index = page.body.index("invoices/#{ordered_invoices[0].id.to_s}")
         invoice_2_index = page.body.index("invoices/#{ordered_invoices[1].id.to_s}")
         invoice_3_index = page.body.index("invoices/#{ordered_invoices[2].id.to_s}")
-        
+
         expect(invoice_1_index.to_i < invoice_2_index.to_i).to be_truthy
         expect(invoice_2_index.to_i < invoice_3_index.to_i).to be_truthy
       end
