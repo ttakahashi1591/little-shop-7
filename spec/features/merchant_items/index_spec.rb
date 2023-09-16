@@ -8,6 +8,8 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     @items_2 = create_list(:item, 3, merchant: @merchant_2)
     @item = create(:item, merchant: @merchant)
     @item_2 = create(:item, merchant: @merchant)
+    @enabled_items = create_list(:item, 3, merchant: @merchant, status: 'enabled')
+    @disabled_items = create_list(:item, 3, merchant: @merchant, status: 'disabled')
   end
 
   it "displays only the items for the current merchant" do
@@ -35,13 +37,25 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     end
     
     expect(page).to have_current_path("/merchants/#{@merchant.id}/items")
+  end
 
-    within("#item-#{@item.id}") do
-      expect(page).to have_content("Current Status: enabled")
+  it "there are two sections, one for enabled items and one for disabled items" do
+    visit "/merchants/#{@merchant.id}/items"
+
+    expect(page).to have_content("Enabled Items")
+    expect(page).to have_content("Disabled Items")
+
+    within("table#enabled-items") do
+      @enabled_items.each do |item|
+        expect(page).to have_content(item.name)
+      end
     end
 
-    within("#item-#{@item_2.id}") do
-      expect(page).to have_content("Current Status: disabled")
+    within("table#disabled-items") do
+      @disabled_items.each do |item|
+        expect(page).to have_content(item.name)
+      end
     end
+    save_and_open_page
   end
 end
