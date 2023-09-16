@@ -4,7 +4,10 @@ class InvoiceItemController < ApplicationController
   end
 
   def update
-    InvoiceItem.find(params[:id]).update(invoice_item_params)
+    invoice_item = InvoiceItem.find(params[:id])
+    invoice_item.update(invoice_item_params)
+    # require 'pry'; binding.pry
+    redirect_to "/merchants/#{params[:merchant_id]}/invoices/#{invoice_item.invoice_id}"
   end
 
   private

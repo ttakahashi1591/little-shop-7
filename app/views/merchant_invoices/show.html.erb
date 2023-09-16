@@ -7,6 +7,7 @@
       <li>Quantity ordered: <%= invoice_item.quantity %></li>
       <li>Price: <%= invoice_item.unit_price %></li>
       <li>Status: <%= form_with model: invoice_item, data: {turbo: false} do |f| %></li>
+        <%= hidden_field_tag(:merchant_id, invoice_item.item.merchant_id) %>
         <%= f.select :status, options_for_select(InvoiceItem.statuses.keys, invoice_item.status) %>
         <%= f.submit "Update Item Status" %>
       <% end %>
