@@ -1,0 +1,11 @@
+<h1>Invoice id: <%= @invoice.id %></h1>
+<h3>Items on this invoice:</h3>
+<section class="items_list">
+  <% @invoice.items.each do |item| %>
+    <section class="invoice_info">
+      <li>Item name: <%= item.name %></li>
+      <li>Quantity ordered: <%= @invoice.invoice_item_selector(item).quantity %></li>
+      <li>Price: <%= @invoice.invoice_item_selector(item).unit_price %></li>
+    </section>
+  <% end %>
+</section>
