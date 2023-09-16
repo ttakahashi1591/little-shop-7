@@ -6,6 +6,7 @@
       <li>Item name: <%= item.name %></li>
       <li>Quantity ordered: <%= @invoice.invoice_item_selector(item).quantity %></li>
       <li>Price: <%= @invoice.invoice_item_selector(item).unit_price %></li>
+      <hr />
     </section>
   <% end %>
 </section>
