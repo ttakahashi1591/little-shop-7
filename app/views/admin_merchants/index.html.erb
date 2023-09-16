@@ -1,5 +1,6 @@
 <h1>Admin Merchants</h1>
-
+<br>
+<%= link_to "Create New Merchant", "/admin/merchants/new" %>
 <ul>
   <% @merchants.each do |merchant| %>
     <section id="merchant-index-<%=merchant.id%>">

@@ -1,16 +1,14 @@
 <h1>Items for <%= @merchant.name %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
-      </tr>
+<% @items.each do |item| %>
+  <section id="item-<%= item.id %>">
+    <h2><%= link_to item.name, merchant_item_path(@merchant, item) %></h2>
+    <h2>Current Status: <%= item.status %></h2>
+    <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: {turbo: false} do |form| %>
+      <h3><%= form.label :status, "Item Status:" %>
+      <%= form.select :status, options_for_select(Item.statuses.keys, item.status) %>
+      <%= form.submit "Update Item Status" %>
+      </h3>
     <% end %>
-  </tbody>
-</table>
+  </section>
+<% end %>

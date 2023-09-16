@@ -56,6 +56,21 @@ RSpec.describe "the admin_invoices id show page", type: :feature do
       it "Then I see the total revenue that will be generated from this invoice" do
         expect(page).to have_content(@invoice1.total_revenue)
       end
+
+      it "I see that status is a select field with the current status selected, I can select a new status and submit, then I return to this page with the updated status" do
+        customer = Customer.create!(first_name: "John" , last_name: "Smith")
+        invoice = customer.invoices.create!(status: 1)
+
+        visit "/admin/invoices/#{invoice.id}"
+
+        select "in progress", :from => "Invoice Status:"
+
+        click_button "Update Invoice Status"
+
+        expect(current_path).to eq("/admin/invoices/#{invoice.id}")
+        
+        expect(page).to have_content("in progress")
+      end
     end
   end
 end
