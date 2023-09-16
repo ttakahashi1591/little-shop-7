@@ -14,16 +14,24 @@ class AdminMerchantsController < ApplicationController
   def update 
     @merchant = Merchant.find(params[:id])
     if @merchant.update(merchant_params)
-      flash.alert = "Successfully Updated!"
+      if params[:name] != nil
+        flash.alert = "Successfully Updated!"
+      elsif params[:status] != nil
+        if params[:status] = 1
+          flash.alert = "Merchant is now enabled."
+        else 
+          flash.alert = "Merchant is now disabled."
+        end
+      else
+        render 'edit'
+      end
       redirect_to "/admin/merchants/#{params[:id]}"
-    else
-      render 'edit'
     end
   end
 
   private
 
   def merchant_params
-    params.permit(:name)
+    params.permit(:name, :status)
   end
 end
