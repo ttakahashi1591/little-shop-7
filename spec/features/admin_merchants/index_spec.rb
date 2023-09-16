@@ -32,6 +32,14 @@ RSpec.describe "admin dashboard", type: :feature do
           expect(page).to have_content(merchant5.name)
         end
       end
+
+      it "Then I see a link to create a new merchant, when I click on the link I am taken to a form" do
+        visit "/admin/merchants"
+
+        click_on "Create New Merchant"
+
+        expect(current_path).to eq("/admin/merchants/new")
+      end
     end
     
     describe "When I click on the name of a merchant from the /admin/merchants index page" do

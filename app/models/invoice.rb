@@ -24,4 +24,8 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum('quantity * unit_price')
   end
+
+  def invoice_item_selector(item)
+    InvoiceItem.where("invoice_id = #{self.id} and item_id = #{item.id}").first
+  end
 end
