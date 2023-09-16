@@ -126,7 +126,7 @@ RSpec.describe "Merchant Dashboard", type: :feature do
 
         within(".items_ready_to_ship") do
           expect(page).to have_content("#{@bouncer.name}")
-          expect(page).to have_link href: "/merchants/#{@merchant_2.id}/invoices/#{@bouncer.invoices.first.id}?merchant_id=#{@merchant_2.id}"
+          expect(page).to have_link href: "/merchants/#{@merchant_2.id}/invoices/#{@bouncer.invoices.first.id}"
         end
       end
 

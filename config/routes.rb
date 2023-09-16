@@ -26,4 +26,6 @@ Rails.application.routes.draw do
   get "/items/:id", to: "items#show"
   get "/items/:id/edit", to: "items#edit"
   patch "/items/:id", to: "items#update"
+
+  resources :invoice_item, only: [:create, :update]
 end
