@@ -1,12 +1,15 @@
 <h1>Invoice id: <%= @invoice.id %></h1>
 <h3>Items on this invoice:</h3>
 <section class="items_list">
-  <% @invoice.items.each do |item| %>
+  <% @invoice_items.each do |invoice_item| %>
     <section class="invoice_info">
-      <li>Item name: <%= item.name %></li>
-      <li>Quantity ordered: <%= @invoice.invoice_item_selector(item).quantity %></li>
-      <li>Price: <%= @invoice.invoice_item_selector(item).unit_price %></li>
-      <li>Status: <%= @invoice.invoice_item_selector(item).status %></li>
+      <li>Item name: <%= invoice_item.find_item.name %></li>
+      <li>Quantity ordered: <%= invoice_item.quantity %></li>
+      <li>Price: <%= invoice_item.unit_price %></li>
+      <li>Status: <%= form_with model: invoice_item, data: {turbo: false} do |f| %></li>
+        <%= f.select :status, options_for_select(InvoiceItem.statuses.keys, invoice_item.status) %>
+        <%= f.submit "Update Item Status" %>
+      <% end %>
       <hr />
     </section>
   <% end %>

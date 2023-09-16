@@ -6,4 +6,8 @@ class InvoiceItem < ApplicationRecord
     "packaged" => 1,
     "shipped" => 2
   }
+
+  def find_item
+    Item.find(self.item_id)
+  end
 end
