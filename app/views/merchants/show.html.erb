@@ -18,7 +18,7 @@
   <% @merchant.items_ready_to_ship.each do |item| %>
     <p><strong>Item:</strong> <%= item.name %></p>
     <p><strong>Date Created:</strong> <%= item.ordered_on_date %></p> 
-    <p><strong>Invoice:</strong> <%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}?merchant_id=#{@merchant.id}" %><br></p>
+    <p><strong>Invoice:</strong> <%= link_to "#{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %><br></p>
   <% end %>
 </section>
 
