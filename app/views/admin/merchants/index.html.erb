@@ -1,6 +1,16 @@
 <h1>Admin Merchants</h1>
 <br>
 <%= link_to "Create New Merchant", "/admin/merchants/new" %>
+<br>
+<h3>Top 5 Merchants</h3>
+<ol>
+  <% Merchant.top_5.each do |merchant| %>
+    <section id="top_5-<%= merchant.id %>">
+      <li><%= link_to merchant.name,  admin_merchant_path(merchant) %>, Total Revenue Generated: <%= number_to_currency(merchant.revenue) %></li>
+    </section>
+  <% end %>
+</ol>
+<h3>All Merchants</h3>
 <ul>
   <% @merchants.each do |merchant| %>
     <section id="merchant-index-<%=merchant.id%>">
