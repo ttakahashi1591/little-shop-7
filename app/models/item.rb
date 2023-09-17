@@ -20,4 +20,12 @@ class Item < ApplicationRecord
   def ordered_on_date
     Invoice.find(self.invoice_id).date_conversion
   end
+
+  def self.enabled
+    where(status: :enabled)
+  end
+
+  def self.disabled
+    where(status: :disabled)
+  end
 end
