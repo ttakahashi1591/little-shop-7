@@ -1,4 +1,11 @@
 class Merchant < ApplicationRecord
+  enum status: {
+    disabled: 0,
+    enabled: 1
+  }
+  
+  validates_presence_of :name
+  
   has_many :items
   has_many :invoices, through: :items
   has_many :customers, through: :invoices
