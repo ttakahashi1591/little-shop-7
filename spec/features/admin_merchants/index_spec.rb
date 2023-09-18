@@ -75,14 +75,14 @@ RSpec.describe "admin dashboard", type: :feature do
     describe "When I visit the /admin/merchants index page" do
       it "Then next to each merchant name I see a button to disable or enable that merchant and then I am redirected back to the admin merchants index where I see that the merchant's status has changed." do
         merchant1 = create(:merchant)
-
+  
         visit "/admin/merchants"
 
         within("#merchant-index-#{merchant1.id}") do 
           expect(page).to have_content(merchant1.name)
           expect(page).to have_button("Disable")
         end
-        
+
         click_button "Disable"
 
         expect(current_path).to eq("/admin/merchants")

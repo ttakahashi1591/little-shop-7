@@ -6,9 +6,9 @@
       <li>
         <%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></li>
         <% if merchant.status.present? %>
-          <%= button_to "Disable", "/admin/merchants", method: :patch %>
+          <%= button_to "Disable", "/admin/merchants/#{merchant.id}?status=disabled", method: :patch %>
         <% else %>
-          <= button_to "Enable", "/admin/merchants", method: :patch %>
+          <= button_to "Enable", "/admin/merchants#{merchant.id}?status=enabled", method: :patch %>
         <% end %>
       </li>
     </section>

@@ -1,7 +1,7 @@
 class Merchant < ApplicationRecord
   enum status: {
-    disable: 0,
-    enable: 1
+    disabled: 0,
+    enabled: 1
   }
   
   has_many :items
