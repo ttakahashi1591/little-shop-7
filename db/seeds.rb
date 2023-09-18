@@ -5,19 +5,3 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
-5.times do
-  Merchant.create(
-    name: Faker::Company.name
-  )
-end
-
-20.times do
-  Item.create(
-    name: Faker::Commerce.product_name,
-    description: Faker::Lorem.sentence,
-    unit_price: Faker::Commerce.price(range: 1..100.0, as_string: false),
-    merchant_id: Merchant.pluck(:id).sample,
-    status: [0, 1].sample 
-  )
-end

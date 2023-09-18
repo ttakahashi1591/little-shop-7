@@ -38,4 +38,8 @@ class Item < ApplicationRecord
     .order('revenue desc')
     .limit(5)
   end
+
+  def item_total_revenue
+    invoice_items.sum('quantity * unit_price')
+  end
 end
