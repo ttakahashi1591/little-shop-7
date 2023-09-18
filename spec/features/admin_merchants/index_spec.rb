@@ -77,7 +77,7 @@ RSpec.describe "admin dashboard", type: :feature do
         merchant1 = create(:merchant)
   
         visit "/admin/merchants"
-
+        
         within("#merchant-index-#{merchant1.id}") do 
           expect(page).to have_content(merchant1.name)
           expect(page).to have_button("Enable")
