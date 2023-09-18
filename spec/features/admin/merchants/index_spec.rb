@@ -109,6 +109,62 @@ RSpec.describe "admin dashboard", type: :feature do
         expect(merchant6.name).to appear_before(merchant4.name)
       end
 
+      it "Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant and I see the date for the most revenue for each merchant" do
+        merchant1 = create(:merchant)
+        merchant2 = create(:merchant)
+        merchant3 = create(:merchant)
+        merchant4 = create(:merchant)
+        merchant5 = create(:merchant)
+        merchant6 = create(:merchant)
+        item1 = create(:item, unit_price: 100, merchant_id: merchant1.id)
+        item2 = create(:item, unit_price: 100, merchant_id: merchant2.id)
+        item3 = create(:item, unit_price: 100, merchant_id: merchant3.id)
+        item4 = create(:item, unit_price: 100, merchant_id: merchant4.id)
+        item5 = create(:item, unit_price: 100, merchant_id: merchant5.id)
+        item6 = create(:item, unit_price: 100, merchant_id: merchant6.id)
+        customer = Customer.create!(first_name: "John", last_name: "Smith")
+        invoice1 = customer.invoices.create!(status: 1, created_at: "Sun, 25 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice2 = customer.invoices.create!(status: 1, created_at: "Mon, 26 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice3 = customer.invoices.create!(status: 1, created_at: "Tue, 27 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice4 = customer.invoices.create!(status: 1, created_at: "Wed, 28 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice5 = customer.invoices.create!(status: 1, created_at: "Thu, 29 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice6 = customer.invoices.create!(status: 1, created_at: "Fri, 30 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice7 = customer.invoices.create!(status: 1, created_at: "Sat, 31 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice8 = customer.invoices.create!(status: 1, created_at: "Sat, 24 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice9 = customer.invoices.create!(status: 1, created_at: "Sat, 24 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice10 = customer.invoices.create!(status: 1, created_at: "Sat, 24 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice11 = customer.invoices.create!(status: 1, created_at: "Sat, 24 Mar 2012 09:54:09.000000000 UTC +00:00")
+        invoice12 = customer.invoices.create!(status: 1, created_at: "Sat, 24 Mar 2012 09:54:09.000000000 UTC +00:00")
+        InvoiceItem.create!(item_id: item6.id, invoice_id: invoice6.id, quantity: 3, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item5.id, invoice_id: invoice5.id, quantity: 5, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item4.id, invoice_id: invoice4.id, quantity: 2, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item3.id, invoice_id: invoice3.id, quantity: 6, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item2.id, invoice_id: invoice2.id, quantity: 6, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, quantity: 4, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item6.id, invoice_id: invoice7.id, quantity: 1, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item5.id, invoice_id: invoice8.id, quantity: 1, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item4.id, invoice_id: invoice9.id, quantity: 1, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item3.id, invoice_id: invoice10.id, quantity: 1, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item2.id, invoice_id: invoice11.id, quantity: 1, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item1.id, invoice_id: invoice12.id, quantity: 1, unit_price: 100, status: 2)
+        invoice1.transactions.create!(result: 1)
+        invoice2.transactions.create!(result: 0)
+        invoice3.transactions.create!(result: 0)
+        invoice3.transactions.create!(result: 1)
+        invoice4.transactions.create!(result: 1)
+        invoice5.transactions.create!(result: 1)
+        invoice6.transactions.create!(result: 1)
+        invoice7.transactions.create!(result: 1)
+        invoice8.transactions.create!(result: 0)
+        invoice9.transactions.create!(result: 0)
+        invoice10.transactions.create!(result: 1)
+        invoice11.transactions.create!(result: 1)
+        invoice12.transactions.create!(result: 1)
+        invoice13.transactions.create!(result: 1)
+
+      
+      end
+
       it "Then I see a link to create a new merchant, when I click on the link I am taken to a form" do
         visit "/admin/merchants"
 
@@ -116,9 +172,7 @@ RSpec.describe "admin dashboard", type: :feature do
 
         expect(current_path).to eq("/admin/merchants/new")
       end
-    end
     
-    describe "When I click on the name of a merchant from the /admin/merchants index page" do
       it "Then I am taken to that /admin/merchants/:merchant_id show page and I see the name of that merchant" do
         merchant1 = create(:merchant)
         merchant3 = create(:merchant)
@@ -144,7 +198,6 @@ RSpec.describe "admin dashboard", type: :feature do
           expect(current_path).to eq("/admin/merchants/#{merchant2.id}")
         end
 
-
         visit "/admin/merchants"
 
         within("#merchant-index-#{merchant3.id}") do
@@ -154,6 +207,32 @@ RSpec.describe "admin dashboard", type: :feature do
 
           expect(current_path).to eq("/admin/merchants/#{merchant3.id}")
         end
+      end
+
+      it "Then next to each merchant name I see a button to disable or enable that merchant and then I am redirected back to the admin merchants index where I see that the merchant's status has changed." do
+        merchant1 = create(:merchant)
+    
+        visit "/admin/merchants"
+          
+        within("#merchant-index-#{merchant1.id}") do 
+          expect(page).to have_content(merchant1.name)
+          expect(page).to have_button("Enable")
+        end
+          
+        click_button "Enable"
+          
+        expect(current_path).to eq("/admin/merchants")
+        expect(page).to have_content("Merchant is now enabled.")
+        
+        within("#merchant-index-#{merchant1.id}") do 
+          expect(page).to have_content(merchant1.name)
+          expect(page).to have_button("Disable")
+        end
+  
+        click_button "Disable"
+  
+        expect(current_path).to eq("/admin/merchants")
+        expect(page).to have_content("Merchant is now disabled.") 
       end
     end
   end
