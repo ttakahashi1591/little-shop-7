@@ -38,9 +38,6 @@ class Merchant < ApplicationRecord
     .order('created_at')
   end
 
-  def total_revenue
-  end
-
   def self.top_5
     joins(invoices: :transactions)
     .where('transactions.result = ?', 1)
