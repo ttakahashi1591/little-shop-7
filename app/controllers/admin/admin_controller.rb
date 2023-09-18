@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class Admin::AdminController < ApplicationController
   def index
     @top_customers = Customer.top
     @invoices = Invoice.all

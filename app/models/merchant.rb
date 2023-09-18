@@ -19,6 +19,7 @@ class Merchant < ApplicationRecord
       .joins(:customer)
       .group('customers.id')
       .order('success_count desc')
+      .limit(5)
   end
 
   def top_5_customers_sql
@@ -42,5 +43,15 @@ class Merchant < ApplicationRecord
     .joins(invoices: :transactions)
     .where('transactions.result = 1 and invoices.status in (1,2) and invoice_items.status = 1')
     .order('created_at')
+  end
+
+  def self.top_5
+    joins(invoices: :transactions)
+    .where('transactions.result = ?', 1)
+    .select('merchants.*, sum((invoice_items.quantity * invoice_items.unit_price)/100) as revenue')
+    .joins(items: :invoice_items)
+    .group('merchants.id')
+    .order('revenue desc')
+    .limit(5)
   end
 end

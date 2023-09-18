@@ -32,9 +32,24 @@ RSpec.describe Item, type: :model do
 
     describe "#status(invoice.id)" do
       it "returns the invoice_items status for the item with the passed in invoice.id" do
-        expect(@item1.status(@invoice1.id)).to eq(@invoice_item1.status)
-        expect(@item2.status(@invoice1.id)).to eq(@invoice_item2.status)
-        expect(@item3.status(@invoice1.id)).to eq(@invoice_item3.status)
+        expect(@item1.invoice_status(@invoice1.id)).to eq(@invoice_item1.status)
+        expect(@item2.invoice_status(@invoice1.id)).to eq(@invoice_item2.status)
+        expect(@item3.invoice_status(@invoice1.id)).to eq(@invoice_item3.status)
+      end
+    end
+
+    describe "#self.enabled, self.disabled" do
+      it "returns items that are enabled/disabled" do
+        enabled_item = create(:item, status: :enabled)
+        disabled_item = create(:item)
+
+        enabled_items = Item.enabled
+        disabled_items = Item.disabled
+
+        expect(enabled_items).to include(enabled_item)
+        expect(enabled_items).not_to include(disabled_item)
+        expect(disabled_items).to include(disabled_item)
+        expect(disabled_items).not_to include(enabled_item)
       end
     end
   end

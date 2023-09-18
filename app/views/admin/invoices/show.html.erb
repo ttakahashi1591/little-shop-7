@@ -18,7 +18,7 @@
     <dt><strong><%= item.name %></strong></dt>
     <dd>Quantity: <%= item.quantity(@invoice.id) %></dd>
     <dd>Unit_Price: <%= item.unit_price %></dd>
-    <dd>Status: <%= item.status(@invoice.id) %></dd>
+    <dd>Status: <%= item.invoice_status(@invoice.id) %></dd>
   </section><br>
 <% end %>
 </dl>

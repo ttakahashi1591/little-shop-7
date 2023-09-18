@@ -3,17 +3,19 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  patch "/merchants/:id", to: "merchants#update"
-  get '/merchants/:id/invoices/:id', to: 'merchants_invoices#show'
-  get '/merchants/:id/dashboard', to: 'merchants#show'
-  get "/merchants/:id/items", to: "merchant_items#index"
-  get "/merchants/:merchant_id/items/:id", to: "merchant_items#show", as: :merchant_item
-  get "/admin", to: "admin#index"
-  get "/admin/merchants", to: "admin_merchants#index"
-  patch "/admin/merchants", to: "admin_merchants#update"
-  get "/admin/merchants/:id", to: "admin_merchants#show"
-  get "/admin/merchants/:id/edit", to: "admin_merchants#edit"
-  get "/admin/invoices", to: "admin_invoices#index"
-  get "/admin/invoices/:id", to: "admin_invoices#show"
-  patch "/admin/invoices/:id", to: "admin_invoices#update"
+  resources :merchants, only: [:show] do
+    get '/dashboard' => 'merchants#show'
+    resources :invoices, only: [:index, :show], :controller => 'merchant_invoices'
+    resources :items, only: [:index, :show, :update, :new, :create], :controller => 'merchant_items'
+  end
+
+  resources :items, only: [:show, :edit, :update]
+
+  resources :invoice_item, only: [:create, :update]
+
+  namespace :admin do
+    root :to => "admin#index"
+    resources :merchants, only: [:index, :new, :create, :show, :edit, :update]
+    resources :invoices, only: [:index, :show, :update]
+  end
 end

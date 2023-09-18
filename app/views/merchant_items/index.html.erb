@@ -1,16 +1,42 @@
 <h1>Items for <%= @merchant.name %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
+<section id="new-form">
+  <%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new" %>
+</section>
+
+<h1> Enabled Items </h1>
+<table id="enabled-items">
   <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
-      </tr>
+    <% @enabled_items.each do |item| %>
+    <section id="item-<%= item.id %>">
+      <h2><%= link_to item.name, merchant_item_path(@merchant, item) %></h2>
+      <h2>Current Status: <%= item.status %></h2>
+      <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false } do |form| %>
+        <h3><%= form.label :status, "Item Status:" %>
+          <%= form.select :status, options_for_select(Item.statuses.keys, item.status) %>
+          <%= form.submit "Update Item Status" %>
+        </h3>
+      <% end %>
+    </section>
+    <% end %>
+  </tbody>
+</table>
+
+<h1> Disabled Items </h1>
+
+<table id="disabled-items">
+  <tbody>
+    <% @disabled_items.each do |item| %>
+    <section id="item-<%= item.id %>">
+      <h2><%= link_to item.name, merchant_item_path(@merchant, item) %></h2>
+      <h2>Current Status: <%= item.status %></h2>
+      <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch, data: { turbo: false } do |form| %>
+        <h3><%= form.label :status, "Item Status:" %>
+          <%= form.select :status, options_for_select(Item.statuses.keys, item.status) %>
+          <%= form.submit "Update Item Status" %>
+        </h3>
+      <% end %>
+    </section>
     <% end %>
   </tbody>
 </table>

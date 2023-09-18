@@ -1,4 +1,8 @@
-<h1>Item Description</h1>
+<% flash.each do |key, message| %>
+  <div class="flash <%= key %>">
+    <%= message %>
+  </div>
+<% end %>
 
 <table>
   <thead>
@@ -16,4 +20,3 @@
     </tr>
   </tbody>
 </table>
-<%= link_to "Update #{@item.name}", "/items/#{@item.id}/edit" %>

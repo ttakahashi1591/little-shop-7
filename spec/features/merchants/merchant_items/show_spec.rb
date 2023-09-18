@@ -15,5 +15,7 @@ RSpec.describe "Merchant Items Show Page", type: :feature do
     expect(page).to have_content(@item.name)
     expect(page).to have_content(@item.description)
     expect(page).to have_content(@item.unit_price)
+
+    expect(page).to have_link("Update")
   end
 end
