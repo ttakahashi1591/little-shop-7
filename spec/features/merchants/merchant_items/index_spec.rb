@@ -66,4 +66,16 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
 
     expect(page).to have_current_path("/merchants/#{@merchant.id}/items/new")
   end
+
+  it "see the names of the top 5 most popular items ranked by total revenue generated" do
+    visit "/merchants/#{@merchant.id}/items"
+    
+    
+    expect(page).to have_content("Top 5 Most Popular Items")
+    
+    
+    within(".top_5_list") do
+
+    end
+  end
 end

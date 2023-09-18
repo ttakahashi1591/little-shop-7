@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
   has_many :customers, through: :invoices
+  has_many :transactions, through: :invoices
 
   enum status: {
     disabled: 0,
@@ -27,5 +28,14 @@ class Item < ApplicationRecord
 
   def self.disabled
     where(status: :disabled)
+  end
+
+  def self.top_5_items
+    joins(invoices: :transactions)
+    .where('transactions.result = ?', 1) 
+    .select('items.*, sum((invoice_items.quantity * invoice_items.unit_price)/100) as revenue')
+    .group('items.id')
+    .order('revenue desc')
+    .limit(5)
   end
 end

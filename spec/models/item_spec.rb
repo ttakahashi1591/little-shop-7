@@ -37,7 +37,9 @@ RSpec.describe Item, type: :model do
         expect(@item3.invoice_status(@invoice1.id)).to eq(@invoice_item3.status)
       end
     end
+  end
 
+  describe "#class methods" do
     describe "#self.enabled, self.disabled" do
       it "returns items that are enabled/disabled" do
         enabled_item = create(:item, status: :enabled)
@@ -50,6 +52,45 @@ RSpec.describe Item, type: :model do
         expect(enabled_items).not_to include(disabled_item)
         expect(disabled_items).to include(disabled_item)
         expect(disabled_items).not_to include(enabled_item)
+      end
+    end
+
+    describe "#top_5_items" do
+      it "returns the top 5 items based on revenue" do
+        merchant1 = create(:merchant)
+        merchant2 = create(:merchant)
+        merchant3 = create(:merchant)
+        merchant4 = create(:merchant)
+        merchant5 = create(:merchant)
+        merchant6 = create(:merchant)
+        item1 = create(:item, unit_price: 100, merchant_id: merchant1.id)
+        item2 = create(:item, unit_price: 100, merchant_id: merchant2.id)
+        item3 = create(:item, unit_price: 100, merchant_id: merchant3.id)
+        item4 = create(:item, unit_price: 100, merchant_id: merchant4.id)
+        item5 = create(:item, unit_price: 100, merchant_id: merchant5.id)
+        item6 = create(:item, unit_price: 100, merchant_id: merchant6.id)
+        customer = Customer.create!(first_name: "John", last_name: "Smith")
+        invoice1 = customer.invoices.create!(status: 1)
+        invoice2 = customer.invoices.create!(status: 1)
+        invoice3 = customer.invoices.create!(status: 1)
+        invoice4 = customer.invoices.create!(status: 1)
+        invoice5 = customer.invoices.create!(status: 1)
+        invoice6 = customer.invoices.create!(status: 1)
+        InvoiceItem.create!(item_id: item6.id, invoice_id: invoice6.id, quantity: 7, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item5.id, invoice_id: invoice5.id, quantity: 6, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item4.id, invoice_id: invoice4.id, quantity: 4, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item3.id, invoice_id: invoice3.id, quantity: 3, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item2.id, invoice_id: invoice2.id, quantity: 2, unit_price: 100, status: 2)
+        InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, quantity: 1, unit_price: 100, status: 2)
+        invoice1.transactions.create!(result: 1)
+        invoice2.transactions.create!(result: 1)
+        invoice3.transactions.create!(result: 1)
+        invoice3.transactions.create!(result: 1)
+        invoice4.transactions.create!(result: 1)
+        invoice5.transactions.create!(result: 1)
+        invoice6.transactions.create!(result: 1)
+
+        expect(Item.top_5_items).to eq([item6, item5, item4, item3, item2])
       end
     end
   end
