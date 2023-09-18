@@ -155,14 +155,34 @@ RSpec.describe "admin dashboard", type: :feature do
         invoice5.transactions.create!(result: 1)
         invoice6.transactions.create!(result: 1)
         invoice7.transactions.create!(result: 1)
-        invoice8.transactions.create!(result: 0)
-        invoice9.transactions.create!(result: 0)
+        invoice8.transactions.create!(result: 1)
+        invoice9.transactions.create!(result: 1)
         invoice10.transactions.create!(result: 1)
         invoice11.transactions.create!(result: 1)
         invoice12.transactions.create!(result: 1)
-        invoice13.transactions.create!(result: 1)
+        
+        visit admin_merchants_path
 
-      
+        within("#top_5-#{merchant1.id}") do
+        require 'pry';binding.pry
+          expect(page).to have_content(merchant1.best_day)
+        end
+
+        within("#top_5-#{merchant3.id}") do
+          expect(page).to have_content(merchant3.best_day)
+        end
+
+        within("#top_5-#{merchant4.id}") do
+          expect(page).to have_content(merchant4.best_day)
+        end
+
+        within("#top_5-#{merchant5.id}") do
+          expect(page).to have_content(merchant5.best_day)
+        end
+
+        within("#top_5-#{merchant6.id}") do
+          expect(page).to have_content(merchant6.best_day)
+        end
       end
 
       it "Then I see a link to create a new merchant, when I click on the link I am taken to a form" do
