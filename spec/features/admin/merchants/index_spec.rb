@@ -69,34 +69,38 @@ RSpec.describe "admin dashboard", type: :feature do
 
         visit "/admin/merchants"
 
+        top_5 = Merchant.top_5.each_with_object({}) do |merchant, hash|
+            hash[merchant.id] = merchant.revenue
+        end
+
         within("#top_5-#{merchant1.id}") do
           expect(page).to have_content(merchant1.name)
           expect(page).to have_link(merchant1.name, href: admin_merchant_path(merchant1))
-          expect(page).to have_content(merchant1.total_revenue)
+          expect(page).to have_content("$4.00")
         end
 
         within("#top_5-#{merchant3.id}") do
           expect(page).to have_content(merchant3.name)
           expect(page).to have_link(merchant3.name, href: admin_merchant_path(merchant3))
-          expect(page).to have_content(merchant3.total_revenue)
+          expect(page).to have_content("$6.00")
         end
 
         within("#top_5-#{merchant4.id}") do
           expect(page).to have_content(merchant4.name)
           expect(page).to have_link(merchant4.name, href: admin_merchant_path(merchant4))
-          expect(page).to have_content(merchant4.total_revenue)
+          expect(page).to have_content("$2.00")
         end
 
         within("#top_5-#{merchant5.id}") do
           expect(page).to have_content(merchant5.name)
           expect(page).to have_link(merchant5.name, href: admin_merchant_path(merchant5))
-          expect(page).to have_content(merchant5.total_revenue)
+          expect(page).to have_content("$5.00")
         end
 
         within("#top_5-#{merchant6.id}") do
           expect(page).to have_content(merchant6.name)
           expect(page).to have_link(merchant6.name, href: admin_merchant_path(merchant6))
-          expect(page).to have_content(merchant6.total_revenue)
+          expect(page).to have_content("$3.00")
         end
 
         expect(merchant3.name).to appear_before(merchant5.name)
