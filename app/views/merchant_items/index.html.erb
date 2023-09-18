@@ -43,5 +43,10 @@
 
 <h1 style="border-bottom: 1px solid black">Top 5 Most Popular Items:</h1>
 <section class="top_5_list">
-
+<h2>Top 5 Items by Revenue</h2>
+<% Item.top_5_items.each do |item| %>
+  <section id="item-<%= item.id %>">
+    <h2><%= link_to item.name, merchant_item_path(@merchant, item) %></h2>
+  </section>
+<% end %>
 </section>
