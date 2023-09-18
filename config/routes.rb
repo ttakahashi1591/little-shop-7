@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  patch "/merchants/:id", to: "merchants#update"
   get '/merchants/:id/invoices/:id', to: 'merchants_invoices#show'
   get '/merchants/:id/dashboard', to: 'merchants#show'
   get "/merchants/:id/items", to: "merchant_items#index"
@@ -12,7 +13,6 @@ Rails.application.routes.draw do
   patch "/admin/merchants", to: "admin_merchants#update"
   get "/admin/merchants/:id", to: "admin_merchants#show"
   get "/admin/merchants/:id/edit", to: "admin_merchants#edit"
-  patch "/admin/merchants/:id", to: "admin_merchants#update"
   get "/admin/invoices", to: "admin_invoices#index"
   get "/admin/invoices/:id", to: "admin_invoices#show"
   patch "/admin/invoices/:id", to: "admin_invoices#update"

@@ -80,23 +80,23 @@ RSpec.describe "admin dashboard", type: :feature do
 
         within("#merchant-index-#{merchant1.id}") do 
           expect(page).to have_content(merchant1.name)
+          expect(page).to have_button("Enable")
+        end
+        
+        click_button "Enable"
+        
+        expect(current_path).to eq("/admin/merchants")
+        expect(page).to have_content("Merchant is now enabled.")
+      
+        within("#merchant-index-#{merchant1.id}") do 
+          expect(page).to have_content(merchant1.name)
           expect(page).to have_button("Disable")
         end
 
         click_button "Disable"
 
         expect(current_path).to eq("/admin/merchants")
-        expect(page).to have_content("Merchant is now disabled.")
-
-        within("#merchant-index-#{merchant1.id}") do 
-          expect(page).to have_content(merchant1.name)
-          expect(page).to have_button("Enable")
-        end
-
-        click_button "Enable"
-
-        expect(current_path).to eq("/admin/merchants")
-        expect(page).to have_content("Merchant is now enabled.") 
+        expect(page).to have_content("Merchant is now disabled.") 
       end
     end
   end

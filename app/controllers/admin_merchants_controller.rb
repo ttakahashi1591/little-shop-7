@@ -14,18 +14,11 @@ class AdminMerchantsController < ApplicationController
   def update 
     @merchant = Merchant.find(params[:id])
     if @merchant.update(merchant_params)
-      if params[:name] != nil
-        flash.alert = "Successfully Updated!"
-      elsif params[:status] != nil
-        if params[:status] = 1
-          flash.alert = "Merchant is now enabled."
-        else 
-          flash.alert = "Merchant is now disabled."
-        end
-      else
-        render 'edit'
-      end
+      flash.alert = "Successfully Updated!"
       redirect_to "/admin/merchants/#{params[:id]}"
+    else
+      flash.alert = "Missing information"
+      render 'edit'
     end
   end
 
