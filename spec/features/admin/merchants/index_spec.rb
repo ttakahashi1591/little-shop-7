@@ -164,24 +164,23 @@ RSpec.describe "admin dashboard", type: :feature do
         visit admin_merchants_path
 
         within("#top_5-#{merchant1.id}") do
-        require 'pry';binding.pry
-          expect(page).to have_content(merchant1.best_day)
+          expect(page).to have_content(Merchant.best_day(merchant1))
         end
 
         within("#top_5-#{merchant3.id}") do
-          expect(page).to have_content(merchant3.best_day)
+          expect(page).to have_content(Merchant.best_day(merchant3))
         end
 
         within("#top_5-#{merchant4.id}") do
-          expect(page).to have_content(merchant4.best_day)
+          expect(page).to have_content(Merchant.best_day(merchant4))
         end
 
         within("#top_5-#{merchant5.id}") do
-          expect(page).to have_content(merchant5.best_day)
+          expect(page).to have_content(Merchant.best_day(merchant5))
         end
 
         within("#top_5-#{merchant6.id}") do
-          expect(page).to have_content(merchant6.best_day)
+          expect(page).to have_content(Merchant.best_day(merchant6))
         end
       end
 
