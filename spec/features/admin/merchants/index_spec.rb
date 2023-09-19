@@ -219,25 +219,26 @@ RSpec.describe "admin dashboard", type: :feature do
       end
 
       it "then I see two sections, one for enabled merchants and one for disabled merchants and I see that each merchant is listed in the appropriate section" do
-        enabled_merchant1 = create(:merchant)
-        enabled_merchant2 = create(:merchant)
-        enabled_merchant3 = create(:merchant)
+        enabled_merchant1 = create(:merchant, status: 1)
+        enabled_merchant2 = create(:merchant, status: 1)
+        enabled_merchant3 = create(:merchant, status: 1)
         disabled_merchant1 = create(:merchant)
         disabled_merchant2 = create(:merchant)
         disabled_merchant3 = create(:merchant)
 
         visit "/admin/merchants"
 
-        within("#enabled-merchants") do 
+        within(".enabled-merchants") do 
           expect(page).to have_content(enabled_merchant1.name)
           expect(page).to have_content(enabled_merchant2.name)
           expect(page).to have_content(enabled_merchant3.name)
         end
-
-        within("#disabled-merchants") do 
+      
+        within(".disabled-merchants") do 
           expect(page).to have_content(disabled_merchant1.name)
           expect(page).to have_content(disabled_merchant2.name)
           expect(page).to have_content(disabled_merchant3.name)
+          save_and_open_page
         end
       end
     end
