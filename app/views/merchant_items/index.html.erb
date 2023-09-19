@@ -4,7 +4,7 @@
   <%= link_to "Create New Item", "/merchants/#{@merchant.id}/items/new" %>
 </section>
 
-<h1> Enabled Items </h1>
+<h1 style="border-bottom: 1px solid black"> Enabled Items </h1>
 <table id="enabled-items">
   <tbody>
     <% @enabled_items.each do |item| %>
@@ -22,7 +22,7 @@
   </tbody>
 </table>
 
-<h1> Disabled Items </h1>
+<h1 style="border-bottom: 1px solid black"> Disabled Items </h1>
 
 <table id="disabled-items">
   <tbody>
@@ -40,3 +40,14 @@
     <% end %>
   </tbody>
 </table>
+
+<h1 style="border-bottom: 1px solid black">Top 5 Most Popular Items:</h1>
+<section class="top_5_list">
+<% Item.top_5_items.each do |item| %>
+  <section id="item-<%= item.id %>">
+    <h2><%= link_to item.name, merchant_item_path(@merchant, item) %></h2>
+    <h2>Total Revenue: $<%= item.item_total_revenue %></h2>
+    <h1>Top selling date for this item: <%= item.item_best_day %></h1>
+  </section>
+<% end %>
+</section>
