@@ -75,6 +75,17 @@ RSpec.describe Merchant, type: :model do
     end
   end
 
+  describe "#best_day" do
+    it "returns the best day for the merchant" do
+      best_day = @merchant_1.best_day
+
+      parsed_date = Date.parse(best_day)
+      expected_formatted_date = parsed_date.strftime("%A, %B %d, %Y")
+
+      expect(best_day).to eq(expected_formatted_date)    
+    end
+  end
+
   describe "#class methods" do
     describe "#top_5" do
       it "returns the top 5 merchants based on revenue" do
