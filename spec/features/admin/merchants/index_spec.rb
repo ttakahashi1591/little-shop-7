@@ -313,7 +313,6 @@ RSpec.describe "admin dashboard", type: :feature do
           expect(page).to have_content(disabled_merchant1.name)
           expect(page).to have_content(disabled_merchant2.name)
           expect(page).to have_content(disabled_merchant3.name)
-          save_and_open_page
         end
       end
 
