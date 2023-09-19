@@ -1,4 +1,11 @@
 class Merchant < ApplicationRecord
+  enum status: {
+    disabled: 0,
+    enabled: 1
+  }
+  
+  validates_presence_of :name
+  
   has_many :items
   has_many :invoices, through: :items
   has_many :customers, through: :invoices
@@ -38,11 +45,21 @@ class Merchant < ApplicationRecord
     .order('created_at')
   end
 
+  def best_day
+    day = invoices.
+          joins(:invoice_items)
+          .select("invoices.created_at, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
+          .group("invoices.created_at")
+          .order('revenue desc')
+          .first
+
+    day.created_at.strftime("%A, %B %d, %Y")
+  end
+
   def self.top_5
     joins(invoices: :transactions)
     .where('transactions.result = ?', 1)
     .select('merchants.*, sum((invoice_items.quantity * invoice_items.unit_price)/100) as revenue')
-    .joins(items: :invoice_items)
     .group('merchants.id')
     .order('revenue desc')
     .limit(5)

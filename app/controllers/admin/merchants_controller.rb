@@ -27,6 +27,7 @@ class Admin::MerchantsController < ApplicationController
       flash.alert = "Successfully Updated!"
       redirect_to "/admin/merchants/#{params[:id]}"
     else
+      flash.alert = "Missing information"
       render 'edit'
     end
   end
@@ -34,6 +35,6 @@ class Admin::MerchantsController < ApplicationController
   private
 
   def merchant_params
-    params.permit(:name)
+    params.permit(:name, :status)
   end
 end
