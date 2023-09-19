@@ -82,8 +82,8 @@ RSpec.describe Item, type: :model do
       
       InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice7.id, quantity: 1, unit_price: 10, status: 2)
       InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice8.id, quantity: 1, unit_price: 10, status: 2)
-      InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice9.id, quantity: 1, unit_price: 10, status: 2)
-      InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice10.id, quantity: 1, unit_price: 10, status: 2)
+      InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice9.id, quantity: 1, unit_price: 50, status: 2)
+      InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice10.id, quantity: 1, unit_price: 50, status: 2)
 
       @invoice1.transactions.create!(result: 1)
       @invoice2.transactions.create!(result: 1)
@@ -125,7 +125,7 @@ RSpec.describe Item, type: :model do
         expect(@item5.item_total_revenue).to eq(1800)
         expect(@item4.item_total_revenue).to eq(800)
         expect(@item3.item_total_revenue).to eq(300)
-        expect(@item2.item_total_revenue).to eq(120)
+        expect(@item2.item_total_revenue).to eq(200)
       end
     end
 
