@@ -42,4 +42,15 @@ class Item < ApplicationRecord
   def item_total_revenue
     invoice_items.sum('quantity * unit_price')
   end
+
+  def item_best_day
+    top_selling_invoice = invoices
+    .joins(:invoice_items)
+    .select("invoices.created_at")
+    .group("invoices.created_at")
+    .order("SUM(invoice_items.quantity) DESC")
+    .first
+
+    top_selling_invoice ? top_selling_invoice.created_at.strftime("%a, %d %b %Y") : nil
+  end
 end

@@ -47,6 +47,7 @@
   <section id="item-<%= item.id %>">
     <h2><%= link_to item.name, merchant_item_path(@merchant, item) %></h2>
     <h2>Total Revenue: $<%= item.item_total_revenue %></h2>
+    <h1>Top selling date for this item: <%= item.item_best_day %></h1>
   </section>
 <% end %>
 </section>

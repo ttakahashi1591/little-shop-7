@@ -25,12 +25,12 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     @item6 = create(:item, unit_price: 400, merchant_id: @merchant6.id)
       
     @customer = Customer.create!(first_name: "John", last_name: "Smith")
-    @invoice1 = @customer.invoices.create!(status: 1)
-    @invoice2 = @customer.invoices.create!(status: 1)
-    @invoice3 = @customer.invoices.create!(status: 1)
-    @invoice4 = @customer.invoices.create!(status: 1)
-    @invoice5 = @customer.invoices.create!(status: 1)
-    @invoice6 = @customer.invoices.create!(status: 1)
+    @invoice1 = @customer.invoices.create!(status: 1, created_at: "2023-08-07")
+    @invoice2 = @customer.invoices.create!(status: 1, created_at: "2023-08-10")
+    @invoice3 = @customer.invoices.create!(status: 1, created_at: "2023-08-11")
+    @invoice4 = @customer.invoices.create!(status: 1, created_at: "2023-08-14")
+    @invoice5 = @customer.invoices.create!(status: 1, created_at: "2023-08-21")
+    @invoice6 = @customer.invoices.create!(status: 1, created_at: "2023-08-24")
       
     InvoiceItem.create!(item_id: @item6.id, invoice_id: @invoice6.id, quantity: 7, unit_price: 400, status: 2)
     InvoiceItem.create!(item_id: @item5.id, invoice_id: @invoice5.id, quantity: 6, unit_price: 300, status: 2)
