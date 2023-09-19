@@ -6,6 +6,7 @@ def load_test_data
   @merchant4 = create(:merchant)
   @merchant5 = create(:merchant)
   @merchant6 = create(:merchant)
+  @merchant7 = create(:merchant)
 
   @items = create_list(:item, 5, merchant: @merchant)
   @items_2 = create_list(:item, 3, merchant: @merchant2)
@@ -20,8 +21,14 @@ def load_test_data
   @item4 = create(:item, unit_price: 200, merchant_id: @merchant4.id)
   @item5 = create(:item, unit_price: 300, merchant_id: @merchant5.id)
   @item6 = create(:item, unit_price: 400, merchant_id: @merchant6.id)
+  @item7 = @merchant7.items.create!(name: "Item 7", description: "Item", unit_price: 10)
+  @item8 = @merchant7.items.create!(name: "Item 8", description: "Item", unit_price: 20)
+  @item9 = @merchant7.items.create!(name: "Item 9", description: "Item", unit_price: 30)
   
   @customer = Customer.create!(first_name: "John", last_name: "Smith")
+  @customer1 = Customer.create!(first_name: "Johnny" , last_name: "Smith")
+
+  @invoice_1 = @customer1.invoices.create!(status: 1)
   @invoice1 = @customer.invoices.create!(status: 1, created_at: "2023-08-07")
   @invoice2 = @customer.invoices.create!(status: 1, created_at: "2023-08-08")
   @invoice3 = @customer.invoices.create!(status: 1, created_at: "2023-08-11")
@@ -32,6 +39,10 @@ def load_test_data
   @invoice8 = @customer.invoices.create!(status: 1, created_at: "2023-08-09")
   @invoice9 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
   @invoice10 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
+
+  @invoice_item1 = InvoiceItem.create!(item_id: @item7.id, invoice_id: @invoice_1.id, quantity: 1, status: 2)
+  @invoice_item2 = InvoiceItem.create!(item_id: @item8.id, invoice_id: @invoice_1.id, quantity: 2, status: 2)
+  @invoice_item3 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice_1.id, quantity: 3, status: 2)
 
   
   InvoiceItem.create!(item_id: @item6.id, invoice_id: @invoice6.id, quantity: 7, unit_price: 400, status: 2)

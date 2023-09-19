@@ -7,39 +7,22 @@ RSpec.describe Item, type: :model do
 
   describe "instance methods" do
     before :each do
-      @merchant = create(:merchant)
-      @merchant1 = create(:merchant)
-      @merchant2 = create(:merchant)
-      @merchant3 = create(:merchant)
-      @merchant4 = create(:merchant)
-      @merchant5 = create(:merchant)
-      
-      @item1 = @merchant.items.create!(name: "Item 1", description: "First Item", unit_price: 10)
-      @item2 = @merchant.items.create!(name: "Item 1", description: "Second Item", unit_price: 20)
-      @item3 = @merchant.items.create!(name: "Item 1", description: "Third Item", unit_price: 30)
-      
-      @customer1 = Customer.create!(first_name: "John" , last_name: "Smith")
-      
-      @invoice1 = @customer1.invoices.create!(status: 1)
-    
-      @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, status: 2)
-      @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 2, status: 2)
-      @invoice_item3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 3, status: 2)
+      load_test_data
     end
 
     describe "#quantity(invoice.id)" do
       it "returns the invoice_items quantity for the item with the passed in invoice.id" do
-        expect(@item1.quantity(@invoice1.id)).to eq(@invoice_item1.quantity)
-        expect(@item2.quantity(@invoice1.id)).to eq(@invoice_item2.quantity)
-        expect(@item3.quantity(@invoice1.id)).to eq(@invoice_item3.quantity)
+        expect(@item7.quantity(@invoice_1.id)).to eq(@invoice_item1.quantity)
+        expect(@item8.quantity(@invoice_1.id)).to eq(@invoice_item2.quantity)
+        expect(@item9.quantity(@invoice_1.id)).to eq(@invoice_item3.quantity)
       end
     end
 
     describe "#status(invoice.id)" do
       it "returns the invoice_items status for the item with the passed in invoice.id" do
-        expect(@item1.invoice_status(@invoice1.id)).to eq(@invoice_item1.status)
-        expect(@item2.invoice_status(@invoice1.id)).to eq(@invoice_item2.status)
-        expect(@item3.invoice_status(@invoice1.id)).to eq(@invoice_item3.status)
+        expect(@item7.invoice_status(@invoice_1.id)).to eq(@invoice_item1.status)
+        expect(@item8.invoice_status(@invoice_1.id)).to eq(@invoice_item2.status)
+        expect(@item9.invoice_status(@invoice_1.id)).to eq(@invoice_item3.status)
       end
     end
   end
