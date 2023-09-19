@@ -317,8 +317,6 @@ RSpec.describe "admin dashboard", type: :feature do
         end
       end
 
-  end
-
       it "Then I am taken to that /admin/merchants/:merchant_id show page and I see the name of that merchant" do
         merchant1 = create(:merchant)
         merchant3 = create(:merchant)
