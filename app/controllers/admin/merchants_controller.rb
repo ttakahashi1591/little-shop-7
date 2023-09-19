@@ -11,10 +11,14 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def create
-    merchant = Merchant.create({
+    merchant = Merchant.new({
       name: params[:name]
     })
-    redirect_to "/admin/merchants"
+    if merchant.save
+      redirect_to "/admin/merchants"
+    else
+      render 'new'
+    end
   end
 
   def edit 
