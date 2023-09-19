@@ -111,7 +111,7 @@ RSpec.describe "admin dashboard", type: :feature do
 
       it "Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant and I see the date for the most revenue for each merchant" do
         merchant1 = create(:merchant)
-        merchant2 = create(:merchant)
+        merchant2 = create(:merchant, name: "Error")
         merchant3 = create(:merchant)
         merchant4 = create(:merchant)
         merchant5 = create(:merchant)
@@ -164,24 +164,43 @@ RSpec.describe "admin dashboard", type: :feature do
         visit admin_merchants_path
 
         within("#top_5-#{merchant1.id}") do
-          expect(page).to have_content(Merchant.best_day(merchant1))
+          expect(page).to have_content(merchant1.best_day)
         end
 
         within("#top_5-#{merchant3.id}") do
-          expect(page).to have_content(Merchant.best_day(merchant3))
+          expect(page).to have_content(merchant3.best_day)
         end
 
         within("#top_5-#{merchant4.id}") do
-          expect(page).to have_content(Merchant.best_day(merchant4))
+          expect(page).to have_content(merchant4.best_day)
         end
 
         within("#top_5-#{merchant5.id}") do
-          expect(page).to have_content(Merchant.best_day(merchant5))
+          expect(page).to have_content(merchant5.best_day)
         end
 
         within("#top_5-#{merchant6.id}") do
-          expect(page).to have_content(Merchant.best_day(merchant6))
+          expect(page).to have_content(merchant6.best_day)
         end
+        # within("#top_5-#{merchant1.id}") do
+        #   expect(page).to have_content(Merchant.best_day(merchant1))
+        # end
+
+        # within("#top_5-#{merchant3.id}") do
+        #   expect(page).to have_content(Merchant.best_day(merchant3))
+        # end
+
+        # within("#top_5-#{merchant4.id}") do
+        #   expect(page).to have_content(Merchant.best_day(merchant4))
+        # end
+
+        # within("#top_5-#{merchant5.id}") do
+        #   expect(page).to have_content(Merchant.best_day(merchant5))
+        # end
+
+        # within("#top_5-#{merchant6.id}") do
+        #   expect(page).to have_content(Merchant.best_day(merchant6))
+        # end
       end
 
       it "Then I see a link to create a new merchant, when I click on the link I am taken to a form" do
