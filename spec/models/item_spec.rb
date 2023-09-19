@@ -67,7 +67,6 @@ RSpec.describe Item, type: :model do
       @invoice4 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
       @invoice5 = @customer.invoices.create!(status: 1, created_at: "2023-08-14")
       @invoice6 = @customer.invoices.create!(status: 1, created_at: "2023-08-15")
-
       @invoice7 = @customer.invoices.create!(status: 1, created_at: "2023-08-09")
       @invoice8 = @customer.invoices.create!(status: 1, created_at: "2023-08-09")
       @invoice9 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")

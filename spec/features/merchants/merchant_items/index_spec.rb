@@ -26,11 +26,16 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       
     @customer = Customer.create!(first_name: "John", last_name: "Smith")
     @invoice1 = @customer.invoices.create!(status: 1, created_at: "2023-08-07")
-    @invoice2 = @customer.invoices.create!(status: 1, created_at: "2023-08-10")
+    @invoice1 = @customer.invoices.create!(status: 1, created_at: "2023-08-07")
+    @invoice2 = @customer.invoices.create!(status: 1, created_at: "2023-08-08")
     @invoice3 = @customer.invoices.create!(status: 1, created_at: "2023-08-11")
-    @invoice4 = @customer.invoices.create!(status: 1, created_at: "2023-08-14")
-    @invoice5 = @customer.invoices.create!(status: 1, created_at: "2023-08-21")
-    @invoice6 = @customer.invoices.create!(status: 1, created_at: "2023-08-24")
+    @invoice4 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
+    @invoice5 = @customer.invoices.create!(status: 1, created_at: "2023-08-14")
+    @invoice6 = @customer.invoices.create!(status: 1, created_at: "2023-08-15")
+    @invoice7 = @customer.invoices.create!(status: 1, created_at: "2023-08-09")
+    @invoice8 = @customer.invoices.create!(status: 1, created_at: "2023-08-09")
+    @invoice9 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
+    @invoice10 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
       
     InvoiceItem.create!(item_id: @item6.id, invoice_id: @invoice6.id, quantity: 7, unit_price: 400, status: 2)
     InvoiceItem.create!(item_id: @item5.id, invoice_id: @invoice5.id, quantity: 6, unit_price: 300, status: 2)
@@ -46,6 +51,10 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     @invoice4.transactions.create!(result: 1)
     @invoice5.transactions.create!(result: 1)
     @invoice6.transactions.create!(result: 1)
+    @invoice7.transactions.create!(result: 1)
+    @invoice8.transactions.create!(result: 1)
+    @invoice9.transactions.create!(result: 1)
+    @invoice10.transactions.create!(result: 1)
   end
 
   it "displays only the items for the current merchant" do
@@ -116,19 +125,23 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
     end
 
     within("#item-#{@item6.id}") do 
-      expect(page).to have_content("Top selling date for this item: Thu, 24 Aug 2023")
+      expect(page).to have_content("Top selling date for this item: Tue, 15 Aug 2023")
     end
 
     within("#item-#{@item5.id}") do 
-      expect(page).to have_content("Top selling date for this item: Mon, 21 Aug 2023")
+      expect(page).to have_content("Top selling date for this item: Mon, 14 Aug 2023")
     end
 
     within("#item-#{@item4.id}") do 
-      expect(page).to have_content("Top selling date for this item: Mon, 14 Aug 2023")
+      expect(page).to have_content("Top selling date for this item: Sat, 12 Aug 2023")
     end
 
     within("#item-#{@item3.id}") do 
       expect(page).to have_content("Top selling date for this item: Fri, 11 Aug 2023")
+    end
+
+    within("#item-#{@item2.id}") do 
+      expect(page).to have_content("Top selling date for this item: Tue, 08 Aug 2023")
     end
   end
 end
