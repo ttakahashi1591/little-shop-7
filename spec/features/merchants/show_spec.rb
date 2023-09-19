@@ -2,18 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Merchant Dashboard", type: :feature do
   before(:each) do
-    @merchant_1 = Merchant.create!(name: "Geoff's Goodies")
-    @merchant_2 = Merchant.create!(name: "Bubba's Boutique")
-    @chochky = @merchant_1.items.create!(name: "chochky", description: "Useless", unit_price: 50)
-    @spinner = @merchant_2.items.create!(name: "Fidget Spinner", description: "Spins", unit_price: 1)
-    @bouncer = @merchant_2.items.create!(name: "Bouncy Ball", description: "bounces", unit_price: 2)
-
-    @cust_1 = Customer.create!(first_name: "Dave", last_name: "Beckam")
-    @cust_2 = Customer.create!(first_name: "Becky", last_name: "Beckam")
-    @cust_3 = Customer.create!(first_name: "Steve", last_name: "Beckam")
-    @cust_4 = Customer.create!(first_name: "Roger", last_name: "Beckam")
-    @cust_5 = Customer.create!(first_name: "Winnona", last_name: "Beckam")
-    @cust_6 = Customer.create!(first_name: "Bend_it", last_name: "Beckam")
+    load_test_data
 
     5.times { @cust_1
               .invoices.create!(status: 1)

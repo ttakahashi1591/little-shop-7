@@ -4,19 +4,4 @@
   </div>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Unit Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= @item.name %></td>
-      <td><%= @item.description %></td>
-      <td><%= @item.unit_price %></td>
-    </tr>
-  </tbody>
-</table>
+<%= render partial: '/layouts/item_attributes', locals: { application: @item } %>
