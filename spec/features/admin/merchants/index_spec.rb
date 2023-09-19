@@ -182,25 +182,6 @@ RSpec.describe "admin dashboard", type: :feature do
         within("#top_5-#{merchant6.id}") do
           expect(page).to have_content(merchant6.best_day)
         end
-        # within("#top_5-#{merchant1.id}") do
-        #   expect(page).to have_content(Merchant.best_day(merchant1))
-        # end
-
-        # within("#top_5-#{merchant3.id}") do
-        #   expect(page).to have_content(Merchant.best_day(merchant3))
-        # end
-
-        # within("#top_5-#{merchant4.id}") do
-        #   expect(page).to have_content(Merchant.best_day(merchant4))
-        # end
-
-        # within("#top_5-#{merchant5.id}") do
-        #   expect(page).to have_content(Merchant.best_day(merchant5))
-        # end
-
-        # within("#top_5-#{merchant6.id}") do
-        #   expect(page).to have_content(Merchant.best_day(merchant6))
-        # end
       end
 
       it "Then I see a link to create a new merchant, when I click on the link I am taken to a form" do
