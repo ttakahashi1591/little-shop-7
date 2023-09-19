@@ -116,6 +116,55 @@ RSpec.describe "admin dashboard", type: :feature do
 
         expect(current_path).to eq("/admin/merchants/new")
       end
+
+      it "Then next to each merchant name I see a button to disable or enable that merchant and then I am redirected back to the admin merchants index where I see that the merchant's status has changed." do
+        merchant1 = create(:merchant)
+  
+        visit "/admin/merchants"
+        
+        within("#merchant-index-#{merchant1.id}") do 
+          expect(page).to have_content(merchant1.name)
+          expect(page).to have_button("Enable")
+        end
+        
+        click_button "Enable"
+        
+        expect(current_path).to eq("/admin/merchants")
+        expect(page).to have_content("Merchant is now enabled.")
+      
+        within("#merchant-index-#{merchant1.id}") do 
+          expect(page).to have_content(merchant1.name)
+          expect(page).to have_button("Disable")
+        end
+
+        click_button "Disable"
+
+        expect(current_path).to eq("/admin/merchants")
+        expect(page).to have_content("Merchant is now disabled.") 
+      end
+
+      it "then I see two sections, one for enabled merchants and one for disabled merchants and I see that each merchant is listed in the appropriate section" do
+        enabled_merchant1 = create(:merchant)
+        enabled_merchant2 = create(:merchant)
+        enabled_merchant3 = create(:merchant)
+        disabled_merchant1 = create(:merchant)
+        disabled_merchant2 = create(:merchant)
+        disabled_merchant3 = create(:merchant)
+
+        visit "/admin/merchants"
+
+        within("#enabled-merchants") do 
+          expect(page).to have_content(enabled_merchant1.name)
+          expect(page).to have_content(enabled_merchant2.name)
+          expect(page).to have_content(enabled_merchant3.name)
+        end
+
+        within("#disabled-merchants") do 
+          expect(page).to have_content(disabled_merchant1.name)
+          expect(page).to have_content(disabled_merchant2.name)
+          expect(page).to have_content(disabled_merchant3.name)
+        end
+      end
     end
     
     describe "When I click on the name of a merchant from the /admin/merchants index page" do
