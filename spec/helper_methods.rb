@@ -52,10 +52,12 @@ def load_test_data
   @invoice8 = @customer.invoices.create!(status: 1, created_at: "2023-08-09")
   @invoice9 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
   @invoice10 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
+  @invoice11 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
 
   @invoice_item1 = InvoiceItem.create!(item_id: @item7.id, invoice_id: @invoice_1.id, quantity: 1, status: 2)
   @invoice_item2 = InvoiceItem.create!(item_id: @item8.id, invoice_id: @invoice_1.id, quantity: 2, status: 2)
   @invoice_item3 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice_1.id, quantity: 3, status: 2)
+  @invoice_item4 = InvoiceItem.create!(item_id: @item9.id, invoice_id: @invoice11.id, quantity: 3, status: 2)
 
   
   InvoiceItem.create!(item_id: @item6.id, invoice_id: @invoice6.id, quantity: 7, unit_price: 400, status: 2)
