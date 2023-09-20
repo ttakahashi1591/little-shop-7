@@ -3,7 +3,7 @@
 <h3>Invoice id: <%= @invoice.id %></h3>
 <h3>Invoice Created Date: <%= @invoice.date_conversion %></h3>
 <h3>Customer: <%= @invoice.customer_name %></h3>
-<h3>Total Revenue Possible: <%= @invoice.total_revenue %></h3>
+<h3>Total Revenue Possible: <%= number_to_currency(@invoice.total_revenue) %></h3>
 <%= form_with url:"/admin/invoices/#{@invoice.id}", method: :patch, data: {turbo: false} do |form| %>
   <h3><%= form.label :status, "Invoice Status:" %>
   <%= form.select :status, options_for_select(Invoice.statuses.keys, @invoice.status) %>
@@ -17,7 +17,7 @@
   <section id="item-<%= item.id %>">
     <dt><strong><%= item.name %></strong></dt>
     <dd>Quantity: <%= item.quantity(@invoice.id) %></dd>
-    <dd>Unit_Price: <%= item.unit_price %></dd>
+    <dd>Unit Price: <%= number_to_currency(item.unit_price/100.00) %></dd>
     <dd>Status: <%= item.invoice_status(@invoice.id) %></dd>
   </section><br>
 <% end %>

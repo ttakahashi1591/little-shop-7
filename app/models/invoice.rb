@@ -10,7 +10,7 @@ class Invoice < ApplicationRecord
   }
 
   def self.not_shipped
-    select("invoices.id, invoices.created_at").joins(:invoice_items).where("invoice_items.status != ?", 2).order("created_at asc")
+    select("invoices.id, invoices.created_at").joins(:invoice_items).where("invoice_items.status != ?", 2).order("created_at asc").distinct
   end
 
   def date_conversion
@@ -22,6 +22,6 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue
-    invoice_items.sum('quantity * unit_price')
+    invoice_items.sum('quantity * unit_price')/100.00
   end
 end

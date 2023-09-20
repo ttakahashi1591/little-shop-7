@@ -1,6 +1,6 @@
 <h2>Create New Merchant</h2>
 <br>
-<%= form_with url:"/admin/merchants", method: :post, data: {turbo: false} do |form| %>
+<%= form_with url: admin_merchants_new_path, data: {turbo: false} do |form| %>
   <%= form.label :name %><br>
   <%= form.text_field :name %><br>
   <%= form.submit "Submit" %>

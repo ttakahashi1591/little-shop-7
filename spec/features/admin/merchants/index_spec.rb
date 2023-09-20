@@ -48,9 +48,8 @@ RSpec.describe "admin dashboard", type: :feature do
         item6 = create(:item, unit_price: 100, merchant_id: merchant6.id)
         customer = Customer.create!(first_name: "John", last_name: "Smith")
         invoice1 = customer.invoices.create!(status: 1)
-        invoice7 = customer.invoices.create!(status: 1, created_at: "January 11, 2020")
         invoice2 = customer.invoices.create!(status: 1)
-        invoice3 = customer.invoices.create!(status: 1, created_at: "January 12, 2020")
+        invoice3 = customer.invoices.create!(status: 1)
         invoice4 = customer.invoices.create!(status: 1)
         invoice5 = customer.invoices.create!(status: 1)
         invoice6 = customer.invoices.create!(status: 1)
@@ -58,7 +57,6 @@ RSpec.describe "admin dashboard", type: :feature do
         InvoiceItem.create!(item_id: item5.id, invoice_id: invoice5.id, quantity: 5, unit_price: 100, status: 2)
         InvoiceItem.create!(item_id: item4.id, invoice_id: invoice4.id, quantity: 2, unit_price: 100, status: 2)
         InvoiceItem.create!(item_id: item3.id, invoice_id: invoice3.id, quantity: 6, unit_price: 100, status: 2)
-        InvoiceItem.create!(item_id: item3.id, invoice_id: invoice7.id, quantity: 5, unit_price: 100, status: 2)
         InvoiceItem.create!(item_id: item2.id, invoice_id: invoice2.id, quantity: 6, unit_price: 100, status: 2)
         InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, quantity: 4, unit_price: 100, status: 2)
         invoice1.transactions.create!(result: 1)
@@ -68,11 +66,9 @@ RSpec.describe "admin dashboard", type: :feature do
         invoice4.transactions.create!(result: 1)
         invoice5.transactions.create!(result: 1)
         invoice6.transactions.create!(result: 1)
-        invoice7.transactions.create!(result: 1)
 
         visit "/admin/merchants"
-        a = merchant3.best_day
-require 'pry'; binding.pry
+
         top_5 = Merchant.top_5.each_with_object({}) do |merchant, hash|
             hash[merchant.id] = merchant.revenue
         end
