@@ -61,7 +61,13 @@ This completed "Little Esty Shop" project is a comprehensive e-commerce manageme
 - [GitHub Project Board](https://github.com/users/ttakahashi1591/projects/1/views/1)
 - [Little Esty Shop Presentation Slides](https://docs.google.com/presentation/d/12BDBTXtxbPfRaVe3ooQ-nPHos9hM3-ltIHrdfsFR6cw/edit?usp=sharing)
 
+## Database Schema Chart
+
+![Database Schema Chart](https://user-images.githubusercontent.com/132484941/269422380-816322a4-7064-41d2-a0d0-26497d6aef14.png)
+
+
 ## Authors
+
 - Ethan Bustamante
   - LinkedIn: [Ethan Bustamante](https://www.linkedin.com/in/ethan-bustamante/)
   - GitHub: [ethanb1145](https://github.com/ethanb1145)
