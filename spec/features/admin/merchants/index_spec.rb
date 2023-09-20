@@ -92,6 +92,7 @@ RSpec.describe "admin dashboard", type: :feature do
         end
 
         within("#top_5-#{merchant5.id}") do
+
           expect(page).to have_content(merchant5.name)
           expect(page).to have_link(merchant5.name, href: admin_merchant_path(merchant5))
           expect(page).to have_content("$5.00")
