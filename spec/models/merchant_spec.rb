@@ -73,6 +73,7 @@ RSpec.describe Merchant, type: :model do
     it "returns a list of items that have successful transactions, status is packaged
     and invoice is either completed or in progress" do
       expect(@merchant_2.items_ready_to_ship).to eq([@bouncer])
+      expect(@merchant_2.items_ready_to_ship.first.ordered_on_date).to eq("Wednesday, September 20, 2023")
     end
   end
 
