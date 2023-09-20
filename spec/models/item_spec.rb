@@ -55,11 +55,11 @@ RSpec.describe Item, type: :model do
 
     describe "#total_revenue" do 
       it "gives the total overall revenue for that item" do
-        expect(@item6.item_total_revenue).to eq(2800)
-        expect(@item5.item_total_revenue).to eq(1800)
-        expect(@item4.item_total_revenue).to eq(800)
-        expect(@item3.item_total_revenue).to eq(300)
-        expect(@item2.item_total_revenue).to eq(200)
+        expect(@item6.item_total_revenue).to eq(28.0)
+        expect(@item5.item_total_revenue).to eq(18.0)
+        expect(@item4.item_total_revenue).to eq(8.0)
+        expect(@item3.item_total_revenue).to eq(3.0)
+        expect(@item2.item_total_revenue).to eq(2.0)
       end
     end
 

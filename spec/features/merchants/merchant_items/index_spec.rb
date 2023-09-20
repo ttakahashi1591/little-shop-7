@@ -72,23 +72,28 @@ RSpec.describe "Merchant Items Index Page", type: :feature do
       expect(@item3.name).to appear_before(@item2.name)
     end
 
-    within("#item-#{@item6.id}") do 
+    within("#item-#{@item6.id}") do
+      expect(page).to have_content("28.0")
       expect(page).to have_content("Top selling date for this item: Tue, 15 Aug 2023")
     end
 
-    within("#item-#{@item5.id}") do 
+    within("#item-#{@item5.id}") do
+    expect(page).to have_content("18.0")
       expect(page).to have_content("Top selling date for this item: Mon, 14 Aug 2023")
     end
 
-    within("#item-#{@item4.id}") do 
+    within("#item-#{@item4.id}") do
+      expect(page).to have_content("8.0")
       expect(page).to have_content("Top selling date for this item: Sat, 12 Aug 2023")
     end
 
-    within("#item-#{@item3.id}") do 
+    within("#item-#{@item3.id}") do
+      expect(page).to have_content("3.0")
       expect(page).to have_content("Top selling date for this item: Fri, 11 Aug 2023")
     end
 
-    within("#item-#{@item2.id}") do 
+    within("#item-#{@item2.id}") do
+      expect(page).to have_content("2.0")
       expect(page).to have_content("Top selling date for this item: Tue, 08 Aug 2023")
     end
   end

@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
       flash[:alert] = "Item successfully updated!"
       redirect_to "/items/#{@item.id}"
     else
+      flash[:alert] = "Fill in all fields."
       render 'edit'
     end
   end
