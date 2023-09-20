@@ -11,6 +11,16 @@
   </head>
 
   <body>
+  <h1>
+      <image style="
+        width: 300px; 
+        height: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;" 
+        src=<%= Unsplash::Photo.find("RExJCExg5U8")[:urls][:raw] %>>
+      </image>
+  </h1>
   <% flash.each do |type, msg| %>
     <div>
       <%= msg %>
