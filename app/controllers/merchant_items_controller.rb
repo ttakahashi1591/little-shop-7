@@ -32,7 +32,8 @@ class MerchantItemsController < ApplicationController
     if @item.save
       redirect_to "/merchants/#{@merchant.id}/items"
     else
-      render :new
+      flash[:alert] = "Fill in all fields."
+      render 'new'
     end
   end
 

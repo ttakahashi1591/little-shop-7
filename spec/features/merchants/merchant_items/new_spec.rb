@@ -31,4 +31,19 @@ RSpec.describe "Merchant Items Creation Page", type: :feature do
     expect(page).to have_current_path("/merchants/#{@merchant.id}/items")
     expect(page).to have_content("New name")
   end
+
+  it "redirected to page when info is missing fields" do 
+    visit "/merchants/#{@merchant.id}/items"
+
+    click_link("Create New Item")
+
+    fill_in "Name", with: "New name"
+    fill_in "Description", with: " "
+    fill_in "Unit price", with: 20
+
+    click_button("Submit")
+    
+    expect(page).to have_current_path("/merchants/#{@merchant.id}/items")
+    expect(page).to have_content("Fill in all fields.")
+  end
 end

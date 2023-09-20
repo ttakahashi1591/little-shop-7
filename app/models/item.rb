@@ -5,6 +5,10 @@ class Item < ApplicationRecord
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
 
+  validates_presence_of :name
+  validates_presence_of :description
+  validates_presence_of :unit_price
+
   enum status: {
     disabled: 0,
     enabled: 1
@@ -40,17 +44,17 @@ class Item < ApplicationRecord
   end
 
   def item_total_revenue
-    invoice_items.sum('quantity * unit_price')
+    invoice_items.sum('quantity * unit_price')/100.00
   end
 
   def item_best_day
-    top_selling_invoice = invoices
+  invoices
     .joins(:invoice_items)
     .select("invoices.created_at")
     .group("invoices.created_at")
     .order("SUM(invoice_items.quantity) DESC")
     .first
-
-    top_selling_invoice ? top_selling_invoice.created_at.strftime("%a, %d %b %Y") : nil
+    .created_at
+    .strftime("%a, %d %b %Y") 
   end
 end

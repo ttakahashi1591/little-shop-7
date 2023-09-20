@@ -42,4 +42,16 @@ RSpec.describe "Items Edit Page", type: :feature do
     expect(page).to have_content("Item successfully updated!")
     expect(page).to have_current_path("/items/#{@item.id}")
   end
+
+  it "when info is not updated, redirected to item page" do 
+    visit "/items/#{@item.id}/edit"
+
+    fill_in "Name", with: " "
+    fill_in "Description", with: "New description"
+    fill_in "Unit price", with: 20
+
+    click_button("Submit")
+    expect(page).to have_current_path("/items/#{@item.id}")
+    expect(page).to have_content("Fill in all fields.")
+  end
 end
