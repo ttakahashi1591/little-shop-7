@@ -14,11 +14,13 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
         within(".discount_id_#{@discount_1.id}") do
           expect(page).to have_content("Threshold: #{@discount_1.threshold}")
           expect(page).to have_content("Discount: #{@discount_1.discount}%")
+          expect(page).to have_link "#{@discount_1.id}", href: "#{merchant_bulk_discount_path(@merchant1, @discount_1)}"
         end
 
         within(".discount_id_#{@discount_2.id}") do
           expect(page).to have_content("Threshold: #{@discount_2.threshold}")
           expect(page).to have_content("Discount: #{@discount_2.discount}%")
+          expect(page).to have_link "#{@discount_2.id}", href: "#{merchant_bulk_discount_path(@merchant1, @discount_2)}"
         end
       end
 
