@@ -60,6 +60,7 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:items) }
     it { should have_many(:invoices).through(:items) }
     it { should have_many(:customers).through(:invoices) }
+    it { should have_many(:bulk_discounts)}
   end
 
   describe "#top_5_customers" do
