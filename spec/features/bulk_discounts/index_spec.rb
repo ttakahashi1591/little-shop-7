@@ -12,10 +12,10 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
         visit "/merchants/#{@merchant1.id}/bulk_discounts"
 
         expect(page).to have_content("Threshold: #{@discount_1.threshold}")
-        expect(page).to have_content("Discount: #{@discount_1.discount}")
+        expect(page).to have_content("Discount: #{@discount_1.discount}%")
 
         expect(page).to have_content("Threshold: #{@discount_2.threshold}")
-        expect(page).to have_content("Discount: #{@discount_2.discount}")
+        expect(page).to have_content("Discount: #{@discount_2.discount}%")
       end
 
       it "And each bulk discount listed includes a link to its show page" do
