@@ -134,5 +134,17 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         expect(invoice_2_index.to_i < invoice_3_index.to_i).to be_truthy
       end
     end
+
+    it "there is a link to view all the merchant's discounts that takes user to the bulk discounts index page" do 
+
+      visit "/merchants/#{@merchant_1.id}/dashboard"
+
+      within(".discounts_link") do
+        expect(page).to have_link("View All My Discounts")
+      end
+
+      click_link("View All My Discounts")
+      expect(page).to have_current_path("/merchants/#{@merchant_1.id}/discounts")
+    end
   end
 end
