@@ -28,6 +28,13 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
 
         visit "/merchants/#{@merchant1.id}/bulk_discounts"
 
+        within(".discount_id_#{@discount_1.id}") do
+          expect(page).to have_link "#{@discount_1.id}", href: "#{merchant_bulk_discount_path(@merchant1, @discount_1)}"
+        end
+
+        within(".discount_id_#{@discount_2.id}") do
+          expect(page)
+        end
       end
     end
   end
