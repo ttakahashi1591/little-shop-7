@@ -24,4 +24,23 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum('quantity * unit_price')/100.00
   end
+
+  def self.discounted_revenue(invoice)
+    find_by_sql(
+        "select sum(revenue) from
+        (
+        select sum(unit_price * quantity)/100.00 as revenue from invoices
+          inner join invoice_items on invoices.id = invoice_items.invoice_id
+          where invoices.id = #{invoice.id}
+          and invoice_items.quantity < 10
+          UNION ALL
+            select (sum(unit_price * quantity)/100.00)*.80 as revenue from invoices
+              inner join invoice_items on invoices.id = invoice_items.invoice_id
+              where invoices.id = 5
+              and invoice_items.quantity >= 10
+        ) x"
+      )
+      .first
+      .sum
+  end
 end
