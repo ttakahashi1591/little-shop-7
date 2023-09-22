@@ -35,7 +35,7 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
 
         expect(page).to have_content("Threshold: 2")
         expect(page).to have_content("Discount: 5")
-        save_and_open_page
+
       end
     end
   end
