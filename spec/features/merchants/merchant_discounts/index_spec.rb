@@ -9,6 +9,10 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
     visit "/merchants/#{@merchant_1.id}/discounts"
 
-    expect(page)
+    within(".discount_index_header") do
+      expect(page).to have_content("All Bulk Discounts")
+    end
+
+    within(".discount_")
   end
 end
