@@ -48,7 +48,12 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
 
         click_on "Create New Discount"
 
-        
+        fill_in "Threshold", with: "35"
+        fill_in "Discount", with: "32"
+        click_on "Submit"
+
+        expect(page).to have_content("Threshold: 35")
+        expect(page).to have_content("Discount: 32")
       end
     end
   end
