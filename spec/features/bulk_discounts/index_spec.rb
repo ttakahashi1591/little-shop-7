@@ -55,6 +55,21 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
         expect(page).to have_content("Threshold: 35")
         expect(page).to have_content("Discount: 32")
       end
+
+      it "I see a button to Delete next to each bulk discount
+      When I click this button
+      Then I am redirected back to the bulk discounts index page
+      And I no longer see the discount listed" do
+
+        visit "/merchants/#{@merchant1.id}/bulk_discounts"
+
+        within(".discount_id_#{@discount_1.id}") do
+          click_on "Delete"
+        end
+
+        expect(page).to_not have_content(@discount_1.threshold)
+        expect(page).to_not have_content(@discount_1.discount)
+      end
     end
   end
 end

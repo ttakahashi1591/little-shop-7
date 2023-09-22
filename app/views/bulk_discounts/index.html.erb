@@ -5,6 +5,7 @@
     <h3><%= link_to discount.id, merchant_bulk_discount_path(@merchant, discount) %></h3>
     <li>Threshold: <%= discount.threshold %></li>
     <li>Discount: <%= discount.discount %>%</li>
+    <%= button_to "Delete", "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :delete, data: { turbo: false } %>
   </ul>
   </section>
 <% end %>
