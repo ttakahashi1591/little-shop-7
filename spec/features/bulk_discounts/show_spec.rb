@@ -25,12 +25,12 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
         visit "/merchants/#{@merchant1.id}/bulk_discounts/#{@discount_1.id}"
 
         click_on "Edit"
-
-        expect(page).to have_content("Threshold: #{@discount_1.threshold}")
-        expect(page).to have_content("Discount: #{@discount_1.discount}")
-
-        fill_in :threshold, with: "2"
-        fill_in :discount, with: "5"
+        save_and_open_page
+        expect(page).to have_field(:bulk_discount_threshold, with: @discount_1.threshold)
+        expect(page).to have_field(:bulk_discount_discount, with: @discount_1.discount)
+        
+        fill_in :bulk_discount_threshold, with: "2"
+        fill_in :bulk_discount_discount, with: "5"
         click_on "Submit"
 
         within(".discount_id_#{@discount_1.id}") do

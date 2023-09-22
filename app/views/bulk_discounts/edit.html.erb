@@ -1,0 +1,8 @@
+
+
+<%= form_with model: @merchant do |bulk_discount| %>
+  <%= fields_for :bulk_discount, @bulk_discount do |discount_form| %>
+    Threshold: <%= discount_form.text_field :threshold %>
+    Discount: <%= discount_form.text_field :discount %>
+  <% end %>
+<% end %>
