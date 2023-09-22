@@ -20,7 +20,7 @@ class DiscountsController < ApplicationController
       redirect_to "/merchants/#{@merchant.id}/discounts"
     else
       flash[:alert] = "Fill in all fields."
-      render 'new'
+      render :new
     end
   end
 

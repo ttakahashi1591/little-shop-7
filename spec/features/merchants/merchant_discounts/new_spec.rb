@@ -28,6 +28,18 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
     click_button("Submit")
 
     expect(page).to have_current_path(merchant_discounts_path(@merchant))
-    expect(page).to have_content("Percentage: 20")
+    expect(page).to have_content("Discount Percentage: 20")
+    expect(page).to have_content("Quantity Threshold: 10")
+  end
+
+  it "when not filled in with valid data, user is prompted to fill in all fields" do 
+    visit new_merchant_discount_path(@merchant)
+
+    fill_in "Quantity threshold", with: "10"
+
+    click_button("Submit")
+
+    expect(page).to have_current_path(merchant_discounts_path(@merchant))
+    expect(page).to have_content("Fill in all fields.")
   end
 end
