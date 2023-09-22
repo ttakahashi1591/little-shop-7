@@ -1,8 +1,5 @@
-
-
-<%= form_with model: @merchant do |bulk_discount| %>
-  <%= fields_for :bulk_discount, @bulk_discount do |discount_form| %>
-    Threshold: <%= discount_form.text_field :threshold %>
-    Discount: <%= discount_form.text_field :discount %>
-  <% end %>
+<%= form_with model: @bulk_discount, url: "/merchants/#{@merchant.id}/bulk_discounts/#{@bulk_discount.id}", data: {turbo: false} do |f| %>
+  Threshold: <%= f.text_field :threshold %>
+  Discount: <%= f.text_field :discount %>
+  <%= f.submit "Submit" %>
 <% end %>
