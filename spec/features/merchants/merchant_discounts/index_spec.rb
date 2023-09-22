@@ -50,7 +50,25 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
 
     within("#discount-#{@discount.id}") do
       click_link("Page for this Discount")
-      expect(page).to have_current_path("/merchants/#{@merchant.id}/discounts/#{@discount.id}")
+      expect(page).to have_current_path(merchant_discount_path(@merchant, @discount))
     end
+  end
+
+  it "there is a link to create a new discount" do 
+
+    visit "/merchants/#{@merchant.id}/discounts"
+
+    within(".discount_create_link") do
+      expect(page).to have_link("Create New Discount")
+    end
+  end
+
+  it "when user clicks this link, is redirected to page with form to create a new discount" do 
+    
+    visit "/merchants/#{@merchant.id}/discounts"
+
+    click_link("Create New Discount")
+
+    expect(page).to have_current_path(new_merchant_discount_path(@merchant))
   end
 end

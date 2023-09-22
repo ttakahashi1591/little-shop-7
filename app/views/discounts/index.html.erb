@@ -3,6 +3,10 @@
   <h1 style="border-bottom: 2px solid black">All Bulk Discounts:</h1>
 </section>
 
+<section class="discount_create_link">
+  <h2><%= link_to 'Create New Discount', new_merchant_discount_path(@merchant) %></h2>
+</section>
+
 <% @discounts.each do |discount| %>
   <section id="discount-<%= discount.id %>">
     <h2><%= link_to 'Page for this Discount', merchant_discount_path(@merchant, discount.id) %></h2>

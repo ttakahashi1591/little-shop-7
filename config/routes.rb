@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get '/dashboard' => 'merchants#show'
     resources :invoices, only: [:index, :show], :controller => 'merchant_invoices'
     resources :items, only: [:index, :show, :update, :new, :create], :controller => 'merchant_items'
-    resources :discounts, only: [:index, :show]
+    resources :discounts, only: [:index, :show, :new, :create]
   end
 
   resources :items, only: [:show, :edit, :update]
