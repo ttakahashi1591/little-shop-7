@@ -4,8 +4,8 @@
 
 <section class="create_form">
   <%= form_with url: merchant_discounts_path(@merchant), method: :post, data: { turbo: false } do |form| %>
-    <%= form.label :percentage %>
-    <%= form.text_field :percentage %>
+    <%= form.label :percent %>
+    <%= form.text_field :percent %>
     <%= form.label :quantity_threshold %>
     <%= form.text_field :quantity_threshold %>
     <%= form.submit "Submit" %>

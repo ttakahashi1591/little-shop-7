@@ -14,7 +14,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
     end
 
     within ('.create_form') do 
-      expect(page).to have_field("Percentage")
+      expect(page).to have_field("Percent")
       expect(page).to have_field("Quantity threshold")
     end
   end
@@ -22,7 +22,7 @@ RSpec.describe "Merchant Discounts Index Page", type: :feature do
   it "when filled in with valid data, user is redirected to merchant discount index page with the new bulk discount listed" do 
     visit new_merchant_discount_path(@merchant)
 
-    fill_in "Percentage", with: "20"
+    fill_in "Percent", with: "20"
     fill_in "Quantity threshold", with: "10"
 
     click_button("Submit")
