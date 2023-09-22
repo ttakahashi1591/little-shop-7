@@ -23,10 +23,10 @@ end
   )
 end
 
-price = Faker::Number.decimal(l_digits: 2)
-
-5.times do
+20.times do
   Discount.create(
-  percent: price
+  percent: Faker::Number.decimal(l_digits: 2),
+  quantity_threshold: Faker::Number.between(from: 1, to: 20),
+  merchant_id: Merchant.pluck(:id).sample
   )
 end
