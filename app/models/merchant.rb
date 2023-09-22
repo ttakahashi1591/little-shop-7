@@ -10,6 +10,7 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
+  has_many :discounts
 
   def top_5_customers
     invoices
