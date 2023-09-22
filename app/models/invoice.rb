@@ -36,7 +36,7 @@ class Invoice < ApplicationRecord
           UNION ALL
             select (sum(unit_price * quantity)/100.00)*.80 as revenue from invoices
               inner join invoice_items on invoices.id = invoice_items.invoice_id
-              where invoices.id = 5
+              where invoices.id = #{invoice.id}
               and invoice_items.quantity >= 10
         ) x"
       )
