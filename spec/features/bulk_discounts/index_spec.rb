@@ -36,6 +36,20 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
           expect(page)
         end
       end
+
+      it "Then I see a link to create a new discount
+      When I click this link
+      Then I am taken to a new page where I see a form to add a new bulk discount
+      When I fill in the form with valid data
+      Then I am redirected back to the bulk discount index
+      And I see my new bulk discount listed" do
+        
+        visit "/merchants/#{@merchant1.id}/bulk_discounts"
+
+        click_on "Create New Discount"
+
+        
+      end
     end
   end
 end
