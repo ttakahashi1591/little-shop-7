@@ -24,6 +24,12 @@ RSpec.describe Invoice, type: :model do
         expect(Invoice.not_shipped).to eq([invoice2, invoice3])
       end
     end
+
+    describe "#discounted_revenue" do
+      it "returns total revenue with an applied discount" do
+        
+      end
+    end
   end
 
   describe "instance methods" do

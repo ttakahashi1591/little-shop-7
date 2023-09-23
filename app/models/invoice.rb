@@ -25,22 +25,30 @@ class Invoice < ApplicationRecord
     invoice_items.sum('quantity * unit_price')/100.00
   end
 
-  def self.discounted_revenue(invoice)
-    find_by_sql(
-        "select sum(revenue) from
-        (
-        select sum(unit_price * quantity)/100.00 as revenue from invoices
-          inner join invoice_items on invoices.id = invoice_items.invoice_id
-          where invoices.id = #{invoice.id}
-          and invoice_items.quantity < 10
-          UNION ALL
-            select (sum(unit_price * quantity)/100.00)*.80 as revenue from invoices
-              inner join invoice_items on invoices.id = invoice_items.invoice_id
-              where invoices.id = #{invoice.id}
-              and invoice_items.quantity >= 10
-        ) x"
+  def revenue_with_discounts
+    Invoice.find_by_sql(
+    "select sum((disc_table.quantity * disc_table.unit_price)*(100 - disc_table.bulk_disc)/100) as revenue from
+      (
+        select max(bulk_discounts.discount) as bulk_disc, invoice_items.* from items
+          inner join invoice_items on invoice_items.item_id = items.id
+          inner join invoices on invoice_items.invoice_id = invoices.id
+          inner join merchants on merchants.id = items.merchant_id
+          inner join bulk_discounts on bulk_discounts.merchant_id = merchants.id
+        where invoice_items.quantity >= bulk_discounts.threshold
+        and invoices.id = #{self.id}
+        group by invoice_items.id
+          union all
+          select 0 as bulk_disc, invoice_items.* from items
+            inner join invoice_items on invoice_items.item_id = items.id
+            inner join invoices on invoice_items.invoice_id = invoices.id
+            inner join merchants on merchants.id = items.merchant_id
+            inner join bulk_discounts on bulk_discounts.merchant_id = merchants.id
+          where invoice_items.quantity < bulk_discounts.threshold
+          and invoices.id = #{self.id}
+          group by invoice_items.id
+        ) disc_table"
       )
       .first
-      .sum
+      .revenue
   end
 end
