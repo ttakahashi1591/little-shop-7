@@ -83,4 +83,7 @@ def load_test_data
   @invoice8.transactions.create!(result: 1)
   @invoice9.transactions.create!(result: 1)
   @invoice10.transactions.create!(result: 1)
+
+  @discount_1 = @merchant1.bulk_discounts.create!(threshold: 10, discount: 20)
+  @discount_2 = @merchant1.bulk_discounts.create!(threshold: 15, discount: 30)
 end

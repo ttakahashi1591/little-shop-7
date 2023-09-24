@@ -1,0 +1,7 @@
+<%= form_with model: BulkDiscount, url: "/merchants/#{@merchant.id}/bulk_discounts", method: :post, data: {turbo: false} do |f| %>
+  <%= f.label :threshold, "Threshold" %>
+  <%= f.text_field :threshold %>
+  <%= f.label :discount, "Discount" %>
+  <%= f.text_field :discount %>
+  <%= f.submit "Submit" %>
+<% end %>

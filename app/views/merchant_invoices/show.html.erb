@@ -3,7 +3,10 @@
 <section class="items_list">
   <% @invoice_items.each do |invoice_item| %>
     <section class="invoice_info">
-      <li>Item name: <%= invoice_item.find_item.name %></li>
+      <li>Item name: <%= invoice_item.find_item.name %>   
+        <% if !invoice_item.applied_discount.nil? %>  
+        <%= link_to "Applied Discount: #{invoice_item.applied_discount}", "/merchants/#{@merchant.id}/bulk_discounts/#{invoice_item.applied_discount}"%></li>
+        <% end %>
       <li>Quantity ordered: <%= invoice_item.quantity %></li>
       <li>Price: <%= invoice_item.unit_price %></li>
       <li>Status: <%= form_with model: invoice_item, data: {turbo: false} do |f| %>
@@ -18,4 +21,8 @@
 <h3>Potential Revenue:</h3>
 <section class="revenue">
   <p>Total revenue: <%= @invoice.total_revenue %></p>
+</section>
+<h3>Revenue with Discounts:</h3>
+<section class="discounted_revenue">
+  <p>Discounted revenue: <%= @invoice.revenue_with_discounts.to_f %></p>
 </section>

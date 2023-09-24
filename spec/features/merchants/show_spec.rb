@@ -81,6 +81,15 @@ RSpec.describe "Merchant Dashboard", type: :feature do
         end
       end
 
+      it "I also see a link to my bulk discounts page" do
+
+        visit "/merchants/#{@merchant_1.id}/dashboard"
+
+        within('.merchant_links') do
+          expect(page).to have_link "Bulk Discounts", href: "/merchants/#{@merchant_1.id}/bulk_discounts"
+        end
+      end
+
       it "I see a section with my top 5 customers with most successful transactions" do
          
         visit "/merchants/#{@merchant_1.id}/dashboard"

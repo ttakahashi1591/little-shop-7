@@ -22,3 +22,11 @@
   </section><br>
 <% end %>
 </dl>
+<h3>Potential Revenue:</h3>
+<section class="revenue">
+  <p>Total revenue: <%= @invoice.total_revenue %></p>
+</section>
+<h3>Revenue with Discounts:</h3>
+<section class="discounted_revenue">
+  <p>Discounted revenue: <%= @invoice.revenue_with_discounts %></p>
+</section>

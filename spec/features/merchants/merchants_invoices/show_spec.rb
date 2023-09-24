@@ -4,6 +4,7 @@ RSpec.describe "Merchant Invoices show", type: :feature do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Geoff's Goodies")
     @merchant_2 = Merchant.create!(name: "Bubba's Boutique")
+    @discount_1 = @merchant_2.bulk_discounts.create!(threshold: 10, discount: 10)
     @chochky = @merchant_1.items.create!(name: "chochky", description: "Useless", unit_price: 50)
     @spinner = @merchant_2.items.create!(name: "Fidget Spinner", description: "Spins", unit_price: 1)
     @bouncer = @merchant_2.items.create!(name: "Bouncy Ball", description: "bounces", unit_price: 2)
@@ -12,7 +13,7 @@ RSpec.describe "Merchant Invoices show", type: :feature do
     @cust_2 = Customer.create!(first_name: "Becky", last_name: "Beckam")
 
     @invoice_1 = @cust_1.invoices.create!(status: 1)
-    InvoiceItem.create!(item_id: @spinner.id, invoice_id: @invoice_1.id, quantity: 20, status: 0, unit_price: 30)
+    @invoice_item = InvoiceItem.create!(item_id: @spinner.id, invoice_id: @invoice_1.id, quantity: 20, status: 0, unit_price: 30)
     @invoice_2 = @cust_2.invoices.create!(status: 1)
     InvoiceItem.create!(item_id: @bouncer.id, invoice_id: @invoice_2.id, quantity: 30, status: 0, unit_price: 100)
   end
@@ -43,6 +44,24 @@ RSpec.describe "Merchant Invoices show", type: :feature do
 
         within(".revenue") do
           expect(page).to have_content("Total revenue: 6.0")
+        end
+      end
+
+      it "and I see the total discounted revenue the invoice will generate" do
+
+        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+
+        within(".discounted_revenue") do
+          expect(page).to have_content("Discounted revenue: 5.4")
+        end
+      end
+
+      it "And I see a link to the discount that was applied to the invoice_item" do
+
+        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+
+        within('.invoice_info') do
+          expect(page).to have_link "Applied Discount: #{@invoice_item.applied_discount}", href: "#{merchant_bulk_discount_path(@merchant_2, @discount_1)}"
         end
       end
     end
