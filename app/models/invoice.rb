@@ -54,31 +54,4 @@ class Invoice < ApplicationRecord
     ).first.revenue.to_f/100
     revenue == 0.0 ? self.total_revenue : revenue
   end
-
-  # def revenue_with_discounts
-  #   Invoice.find_by_sql(
-  #   "select sum((disc_table.quantity * disc_table.unit_price)*((100 - disc_table.bulk_disc)/100)) as revenue from
-  #     (
-  #       select max(bulk_discounts.discount) as bulk_disc, invoice_items.* from items
-  #         inner join invoice_items on invoice_items.item_id = items.id
-  #         inner join invoices on invoice_items.invoice_id = invoices.id
-  #         inner join merchants on merchants.id = items.merchant_id
-  #         inner join bulk_discounts on bulk_discounts.merchant_id = merchants.id
-  #       where invoice_items.quantity >= bulk_discounts.threshold
-  #       and invoices.id = #{self.id}
-  #       group by invoice_items.id
-  #         union all
-  #         select 0 as bulk_disc, invoice_items.* from items
-  #           inner join invoice_items on invoice_items.item_id = items.id
-  #           inner join invoices on invoice_items.invoice_id = invoices.id
-  #           inner join merchants on merchants.id = items.merchant_id
-  #           inner join bulk_discounts on bulk_discounts.merchant_id = merchants.id
-  #         where invoice_items.quantity < bulk_discounts.threshold
-  #         and invoices.id = #{self.id}
-  #         group by invoice_items.id
-  #       ) disc_table"
-  #     )
-  #     .first
-  #     .revenue
-  # end
 end
