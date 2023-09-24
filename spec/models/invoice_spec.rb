@@ -27,7 +27,7 @@ RSpec.describe Invoice, type: :model do
 
     describe "#discounted_revenue" do
       it "returns total revenue with an applied discount" do
-        
+
       end
     end
   end
@@ -68,6 +68,25 @@ RSpec.describe Invoice, type: :model do
         invoice_item3 = InvoiceItem.create!(item_id: item3.id, invoice_id: invoice1.id, quantity: 3, unit_price: 30, status: 2)
 
         expect(invoice1.total_revenue).to eq(1.40)
+      end
+
+      describe "#revenue_with_discounts" do
+        it "returns the total revenue for the invoice with any applicable discounts applied" do
+          merchant1 = Merchant.create!(name: "Merchant")
+          merchant1.bulk_discounts.create!(threshold: 5, discount: 10)
+          merchant1.bulk_discounts.create!(threshold: 10, discount: 20)
+          item1 = merchant1.items.create!(name: "Item 1", description: "First Item", unit_price: 100)
+          
+          customer1 = Customer.create!(first_name: "John" , last_name: "Smith")
+         
+          invoice1 = customer1.invoices.create!(status: 1)
+          
+          invoice_item1 = InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, quantity: 1, unit_price: 100, status: 2)
+          invoice_item1 = InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, quantity: 5, unit_price: 100, status: 2)
+          invoice_item1 = InvoiceItem.create!(item_id: item1.id, invoice_id: invoice1.id, quantity: 10, unit_price: 100, status: 2)
+
+          expect(invoice1.revenue_with_discounts).to eq(1350)
+        end
       end
     end
   end
