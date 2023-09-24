@@ -26,7 +26,7 @@ class Invoice < ApplicationRecord
   end
 
   def revenue_with_discounts
-    Invoice.find_by_sql(
+    revenue = Invoice.find_by_sql(
       "select sum((x.quantity * x.unit_price)*(100 - x.discount)/100) as revenue from
         (
         select max(disc_table.bulk_disc) as discount, disc_table.id, disc_table.quantity, disc_table.unit_price from
@@ -53,7 +53,12 @@ class Invoice < ApplicationRecord
         ) x"
     )
     .first
-    .revenue
+    .revenue.to_f/100
+    if revenue == 0.0
+      self.total_revenue
+    else
+      revenue
+    end
   end
 
   # def revenue_with_discounts
