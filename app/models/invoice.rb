@@ -51,14 +51,8 @@ class Invoice < ApplicationRecord
           ) disc_table
         group by disc_table.id, disc_table.quantity, disc_table.unit_price
         ) x"
-    )
-    .first
-    .revenue.to_f/100
-    if revenue == 0.0
-      self.total_revenue
-    else
-      revenue
-    end
+    ).first.revenue.to_f/100
+    revenue == 0.0 ? self.total_revenue : revenue
   end
 
   # def revenue_with_discounts
