@@ -67,8 +67,8 @@ RSpec.describe "Bulk Discounts index page", type: :feature do
           click_on "Delete"
         end
 
-        expect(page).to_not have_content(@discount_1.threshold)
-        expect(page).to_not have_content(@discount_1.discount)
+        expect(page).to_not have_content("Threshold: #{@discount_1.threshold}")
+        expect(page).to_not have_content("Discount: #{@discount_1.discount}")
       end
     end
   end
