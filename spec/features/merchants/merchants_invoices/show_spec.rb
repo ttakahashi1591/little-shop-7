@@ -4,6 +4,7 @@ RSpec.describe "Merchant Invoices show", type: :feature do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Geoff's Goodies")
     @merchant_2 = Merchant.create!(name: "Bubba's Boutique")
+    @discount_1 = @merchant_2.bulk_discounts.create!(threshold: 10, discount: 10)
     @chochky = @merchant_1.items.create!(name: "chochky", description: "Useless", unit_price: 50)
     @spinner = @merchant_2.items.create!(name: "Fidget Spinner", description: "Spins", unit_price: 1)
     @bouncer = @merchant_2.items.create!(name: "Bouncy Ball", description: "bounces", unit_price: 2)
@@ -43,6 +44,15 @@ RSpec.describe "Merchant Invoices show", type: :feature do
 
         within(".revenue") do
           expect(page).to have_content("Total revenue: 6.0")
+        end
+      end
+
+      it "and I see the total discounted revenue the invoice will generate" do
+
+        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+        
+        within(".discounted_revenue") do
+          expect(page).to have_content("Discounted revenue: 5.4")
         end
       end
     end
