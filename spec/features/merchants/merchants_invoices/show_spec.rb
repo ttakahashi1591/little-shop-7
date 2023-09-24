@@ -13,7 +13,7 @@ RSpec.describe "Merchant Invoices show", type: :feature do
     @cust_2 = Customer.create!(first_name: "Becky", last_name: "Beckam")
 
     @invoice_1 = @cust_1.invoices.create!(status: 1)
-    InvoiceItem.create!(item_id: @spinner.id, invoice_id: @invoice_1.id, quantity: 20, status: 0, unit_price: 30)
+    @invoice_item = InvoiceItem.create!(item_id: @spinner.id, invoice_id: @invoice_1.id, quantity: 20, status: 0, unit_price: 30)
     @invoice_2 = @cust_2.invoices.create!(status: 1)
     InvoiceItem.create!(item_id: @bouncer.id, invoice_id: @invoice_2.id, quantity: 30, status: 0, unit_price: 100)
   end
@@ -50,9 +50,18 @@ RSpec.describe "Merchant Invoices show", type: :feature do
       it "and I see the total discounted revenue the invoice will generate" do
 
         visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
-        
+
         within(".discounted_revenue") do
           expect(page).to have_content("Discounted revenue: 5.4")
+        end
+      end
+
+      it "And I see a link to the discount that was applied to the invoice_item" do
+
+        visit "/merchants/#{@merchant_2.id}/invoices/#{@invoice_1.id}"
+
+        within('.invoice_info') do
+          expect(page).to have_link "Applied Discount: #{@invoice_item.applied_discount}", href: "#{merchant_bulk_discount_path(@merchant_2, @discount_1)}"
         end
       end
     end
