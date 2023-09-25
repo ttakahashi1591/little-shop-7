@@ -14,7 +14,7 @@ class BulkDiscountsController < ApplicationController
     if discount.save
       redirect_to merchant_bulk_discounts_path(@merchant)
     else
-      flash[:alert] = "You must fill in all fields"
+      flash[:alert] = "Error: #{error_message(discount.errors)}"
       render 'new'
     end
     
@@ -42,7 +42,7 @@ class BulkDiscountsController < ApplicationController
     if @bulk_discount.update(discount_params)
       redirect_to "/merchants/#{@merchant.id}/bulk_discounts/#{@bulk_discount.id}"  
     else
-      flash[:alert] = "You must fill in all fields"
+      flash[:alert] = "Error: #{error_message(@bulk_discount.errors)}"
       render 'edit'
     end
     
