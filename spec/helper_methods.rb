@@ -13,6 +13,7 @@ def load_test_data
   @chochky = @merchant_1.items.create!(name: "chochky", description: "Useless", unit_price: 50)
   @spinner = @merchant_2.items.create!(name: "Fidget Spinner", description: "Spins", unit_price: 1)
   @bouncer = @merchant_2.items.create!(name: "Bouncy Ball", description: "bounces", unit_price: 2)
+  @ball = @merchant1.items.create!(name: "Bouncy Ball", description: "bounces", unit_price: 2)
 
   @cust_1 = Customer.create!(first_name: "Dave", last_name: "Beckam")
   @cust_2 = Customer.create!(first_name: "Becky", last_name: "Beckam")
@@ -53,6 +54,7 @@ def load_test_data
   @invoice9 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
   @invoice10 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
   @invoice11 = @customer.invoices.create!(status: 1, created_at: "2023-08-12")
+  @invoice12 = @customer.invoices.create!(status: 2, created_at: "2023-08-12")
 
   @invoice_item1 = InvoiceItem.create!(item_id: @item7.id, invoice_id: @invoice_1.id, quantity: 1, status: 2)
   @invoice_item2 = InvoiceItem.create!(item_id: @item8.id, invoice_id: @invoice_1.id, quantity: 2, status: 2)
@@ -71,6 +73,7 @@ def load_test_data
   InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice8.id, quantity: 1, unit_price: 10, status: 2)
   InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice9.id, quantity: 1, unit_price: 50, status: 2)
   InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice10.id, quantity: 1, unit_price: 50, status: 2)
+  InvoiceItem.create!(item_id: @ball.id, invoice_id: @invoice12.id, quantity: 5, unit_price: 50, status: 2)
 
   @invoice1.transactions.create!(result: 1)
   @invoice2.transactions.create!(result: 1)
@@ -86,4 +89,5 @@ def load_test_data
 
   @discount_1 = @merchant1.bulk_discounts.create!(threshold: 10, discount: 20)
   @discount_2 = @merchant1.bulk_discounts.create!(threshold: 15, discount: 30)
+  @discount_3 = @merchant1.bulk_discounts.create!(threshold: 1, discount: 5)
 end

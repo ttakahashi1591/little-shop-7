@@ -22,8 +22,14 @@ class BulkDiscountsController < ApplicationController
 
   def destroy
     @merchant = Merchant.find(params[:merchant_id])
-    BulkDiscount.find(params[:id]).delete
-    redirect_to merchant_bulk_discounts_path(@merchant)
+    bulk_discount = BulkDiscount.find(params[:id])
+    if bulk_discount.can_be_modified?
+      bulk_discount.delete
+      redirect_to merchant_bulk_discounts_path(@merchant)
+    else
+      flash[:alert] = "Error: this discount can't be modified or deleted while there are pending invoices"
+      redirect_to merchant_bulk_discounts_path(@merchant)
+    end
   end
 
   def show
