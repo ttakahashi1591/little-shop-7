@@ -33,8 +33,13 @@ class BulkDiscountsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:merchant_id])
     @bulk_discount = BulkDiscount.find(params[:id])
-    @bulk_discount.update!(discount_params)
-    redirect_to "/merchants/#{@merchant.id}/bulk_discounts/#{@bulk_discount.id}"
+    if @bulk_discount.update(discount_params)
+      redirect_to "/merchants/#{@merchant.id}/bulk_discounts/#{@bulk_discount.id}"  
+    else
+      flash[:alert] = "You must fill in all fields"
+      render 'edit'
+    end
+    
   end
 
   private

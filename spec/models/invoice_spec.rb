@@ -88,7 +88,7 @@ RSpec.describe Invoice, type: :model do
           expect(invoice1.revenue_with_discounts).to eq(13.50)
         end
 
-        it "still returns the non discounted total if no items qualify for bulk_discounts" do
+        it "still returns the non discounted total if no items qualify for bulk_discounts or merchant has 0 discounts made" do
           merchant1 = Merchant.create!(name: "Merchant")
         
           item1 = merchant1.items.create!(name: "Item 1", description: "First Item", unit_price: 10)
